@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar class="productHeader">
+    <ion-buttons slot="start">
+      <ion-button routerLink="/quotationreuests">
+        <img src="assets/images/chevron.svg" />
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Quotation Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="fleximg">
+    <img src="assets/images/userimg.png" alt="" />
+    <div>
+      <h3><strong>Rob</strong> Semuiel</h3>
+      <p>robsemui02@gmail.com</p>
+    </div>
+  </div>
+  <div class="p15 mt45">
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        <ion-col>
+          <h2>Product Details </h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <form>
+            <ion-list lines="none">
+              <div class="labeltxt">Product Name</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <p>Cropped Pointelle Sweater</p>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none">
+              <div class="labeltxt">Sourcing Type</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <p>Customized Product</p>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none">
+              <div class="labeltxt">Sourcing Purpose</div>
+              <ion-item lines="none" class="ion-no-padding">
+               <p>Retail</p>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none">
+              <div class="labeltxt">What are you looking for?</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <p>Product Supplier</p>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none">
+              <div class="labeltxt">FOB</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <p>FAS</p>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none">
+              <div class="labeltxt">Preferred Unit Price</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <p>$299</p>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none">
+              <div class="labeltxt">Valid To</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <p>29-04-2021</p>
+              </ion-item>
+            </ion-list>
+
+          </form>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

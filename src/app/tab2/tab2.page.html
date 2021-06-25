@@ -1,0 +1,188 @@
+<ion-header>
+  <ion-toolbar class="productHeader">
+    <ion-menu-button slot="start">
+      <img src="assets/images/menu.svg" class="backbtn1" />
+    </ion-menu-button>
+    <ion-title>My Orders</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <div class="p15 mt45">
+    <ion-segment [(ngModel)]="profile" color="primary" (ionChange)="segmentChanged($event)">
+      <ion-segment-button lines="no" value="upcoming">
+          <span>Upcoming</span>
+      </ion-segment-button>
+      <ion-segment-button value="previous">
+        <span>Previous</span>
+      </ion-segment-button>
+    </ion-segment>
+    <div [ngSwitch]="profile">
+      <div *ngSwitchCase="'upcoming'">
+        <!-- Product -->
+        <div *ngIf="productData.length>0 && !noData">       
+        <div class="resto_detail" *ngFor="let data of productData;let i = index">
+          <!-- <div class="back_image"></div> -->
+            <div class="w100" >
+              <ion-label class="res_name" (click)="goTo(data)">
+                <strong> Order NO {{data?.order_number}} </strong> <ion-label class="small_lbl"> Qty: {{data?.qty}} </ion-label>
+                <div class="btnbox">
+                  <ion-button shape="round" class="round1" [color]="getColor(data?.status)" expand="small">{{data?.status}}</ion-button>
+                </div>
+              </ion-label>
+              <h3 (click)="goTo(data)">CN¥ {{data?.price}}</h3>
+              
+                <div class="btnbox" *ngIf="data?.status == 'pending' ">
+                <ion-button shape="round"  class="round1" color="secondary" expand="small" (click)="changeStatus('processing',data, i)">Accept</ion-button>
+                <ion-button shape="round" class="round1 cancel1" color="darklight" expand="small"  (click)="changeStatus('declined',data, i)">Reject</ion-button>
+              </div>
+              <div class="btnbox" *ngIf="data?.status == 'processing' ">
+                <ion-button shape="round" class="round1 cancel1" color="success" expand="small" (click)="changeStatus('completed',data, i)">Complete</ion-button>
+              </div>
+            </div>
+        </div>
+      </div>
+        <!-- End Of Product -->
+        <div *ngIf="productData.length == 0 && !noData">      
+        <!-- Product -->
+        <div class="resto_detail">
+           <div class="w100">
+              <ion-label class="res_name">
+                <ion-skeleton-text animated style="width: 165px;"></ion-skeleton-text>  
+              </ion-label>
+              <h3><ion-skeleton-text animated ></ion-skeleton-text> </h3>
+
+              <!-- <div class="btnbox">
+                <ion-button shape="round" class="round1" color="secondary" expand="small">Accept</ion-button>
+                <ion-button shape="round" class="round1 cancel1" color="darklight" expand="small">Reject</ion-button>
+              </div> -->
+            </div>
+        </div>
+        <div class="resto_detail">
+          <div class="w100">
+             <ion-label class="res_name">
+               <ion-skeleton-text animated style="width: 165px;"></ion-skeleton-text>  
+             </ion-label>
+             <h3><ion-skeleton-text animated ></ion-skeleton-text> </h3>
+
+             <!-- <div class="btnbox">
+               <ion-button shape="round" class="round1" color="secondary" expand="small">Accept</ion-button>
+               <ion-button shape="round" class="round1 cancel1" color="darklight" expand="small">Reject</ion-button>
+             </div> -->
+           </div>
+       </div>
+       <div class="resto_detail">
+        <div class="w100">
+           <ion-label class="res_name">
+             <ion-skeleton-text animated style="width: 165px;"></ion-skeleton-text>  
+           </ion-label>
+           <h3><ion-skeleton-text animated ></ion-skeleton-text> </h3>
+
+           <!-- <div class="btnbox">
+             <ion-button shape="round" class="round1" color="secondary" expand="small">Accept</ion-button>
+             <ion-button shape="round" class="round1 cancel1" color="darklight" expand="small">Reject</ion-button>
+           </div> -->
+         </div>
+     </div>
+     <div class="resto_detail">
+      <div class="w100">
+         <ion-label class="res_name">
+           <ion-skeleton-text animated style="width: 165px;"></ion-skeleton-text>  
+         </ion-label>
+         <h3><ion-skeleton-text animated ></ion-skeleton-text> </h3>
+
+         <!-- <div class="btnbox">
+           <ion-button shape="round" class="round1" color="secondary" expand="small">Accept</ion-button>
+           <ion-button shape="round" class="round1 cancel1" color="darklight" expand="small">Reject</ion-button>
+         </div> -->
+       </div>
+   </div>
+      </div>
+        <!-- End Of Product -->
+      </div>
+      <div *ngSwitchCase="'previous'">
+        <!-- Product -->
+        <div *ngIf="productData.length>0 && !noData">       
+        <div class="resto_detail" *ngFor="let data of productData">
+          <!-- <div class="back_image"></div> -->
+            <div class="w100">
+              <ion-label class="res_name" (click)="goTo(data)">
+                <strong> Order NO {{data?.order_number}} </strong> <ion-label class="small_lbl"> Qty: {{data?.qty}} </ion-label>
+              </ion-label>
+              <h3 (click)="goTo(data)">CN¥ {{data?.price}}</h3>
+              <div class="btnbox">
+                <ion-button shape="round" class="round1" [color]="getColor(data?.status)" expand="small">{{data?.status}}</ion-button>
+              </div>
+            </div>
+        </div>
+      </div>
+        <!-- End Of Product -->
+        <div *ngIf="productData.length == 0 && !noData">      
+        <!-- Product -->
+        <div class="resto_detail">
+           <div class="w100">
+              <ion-label class="res_name">
+                <ion-skeleton-text animated style="width: 165px;"></ion-skeleton-text>  
+              </ion-label>
+              <h3><ion-skeleton-text animated ></ion-skeleton-text> </h3>
+
+              <!-- <div class="btnbox">
+                <ion-button shape="round" class="round1" color="secondary" expand="small">Accept</ion-button>
+                <ion-button shape="round" class="round1 cancel1" color="darklight" expand="small">Reject</ion-button>
+              </div> -->
+            </div>
+        </div>
+        <div class="resto_detail">
+          <div class="w100">
+             <ion-label class="res_name">
+               <ion-skeleton-text animated style="width: 165px;"></ion-skeleton-text>  
+             </ion-label>
+             <h3><ion-skeleton-text animated ></ion-skeleton-text> </h3>
+
+             <!-- <div class="btnbox">
+               <ion-button shape="round" class="round1" color="secondary" expand="small">Accept</ion-button>
+               <ion-button shape="round" class="round1 cancel1" color="darklight" expand="small">Reject</ion-button>
+             </div> -->
+           </div>
+       </div>
+       <div class="resto_detail">
+        <div class="w100">
+           <ion-label class="res_name">
+             <ion-skeleton-text animated style="width: 165px;"></ion-skeleton-text>  
+           </ion-label>
+           <h3><ion-skeleton-text animated ></ion-skeleton-text> </h3>
+
+           <!-- <div class="btnbox">
+             <ion-button shape="round" class="round1" color="secondary" expand="small">Accept</ion-button>
+             <ion-button shape="round" class="round1 cancel1" color="darklight" expand="small">Reject</ion-button>
+           </div> -->
+         </div>
+     </div>
+     <div class="resto_detail">
+      <div class="w100">
+         <ion-label class="res_name">
+           <ion-skeleton-text animated style="width: 165px;"></ion-skeleton-text>  
+         </ion-label>
+         <h3><ion-skeleton-text animated ></ion-skeleton-text> </h3>
+
+         <!-- <div class="btnbox">
+           <ion-button shape="round" class="round1" color="secondary" expand="small">Accept</ion-button>
+           <ion-button shape="round" class="round1 cancel1" color="darklight" expand="small">Reject</ion-button>
+         </div> -->
+       </div>
+   </div>
+      </div>
+        <!-- End Of Product -->
+      </div>
+      <div class="no-data" *ngIf="productData.length == 0 && noData">
+        <p>No order found!</p>
+        <p></p>
+      </div>
+    </div>
+  </div>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="pagination($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+</ion-infinite-scroll>  
+</ion-content>

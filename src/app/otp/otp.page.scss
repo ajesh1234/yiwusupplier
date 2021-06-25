@@ -1,0 +1,106 @@
+h1{
+  font-weight: 700;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+p{
+  margin-top: 0px;
+  color: #B5B4B4;
+  font-size: 13px;
+  font-weight: 400;
+  margin-bottom: 45px;
+}
+
+ion-item {
+  --ion-safe-area-right: 0;
+}
+
+ion-item {
+  margin-bottom: 20px;
+}
+
+.termCondition
+{
+  ion-item{
+    margin-bottom: 10px;
+  }
+  ion-label{
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  ion-checkbox{
+    --border-radius: 0;
+    --border-width: 2px;
+    --size: 19px;
+    margin-right: 5px;
+  }
+  a{
+    font-size: 15px;
+  }
+}
+
+
+.mt45
+{
+  margin-top: 45px;
+}
+
+.ion-flex{
+  display: flex;
+  align-items: center;
+  ion-label{
+    font-weight: 400;
+    font-size: 14px;
+  }
+}
+
+.ioncuinput
+{
+    ion-input{
+        height: 60px;
+        border: 2px solid rgba(229,229,229,1);
+        border-radius: 10px;
+        margin: 0 15px;
+        margin-top: 10px;
+        font-size: 29px;
+        text-align: center;
+        font-weight: 500;
+        --padding-start: 8px;
+    }
+}
+
+// Passcode-wrapper Styling only Begin ==
+.passcode-wrapper {
+	display: flex;
+  background-color: #fff;
+	justify-content: space-between;
+	align-items: center;
+	width: auto;
+	margin: 0 auto 25px;
+	input {
+		width: 50px;
+		height: 50px;
+		padding: 0;
+		margin-right: 5px;
+		text-align: center;
+		border: 1px solid gray;
+		border-radius: 5px;
+		&:last-child {
+			margin-right: 0;
+		}
+		&::-webkit-inner-spin-button,
+		&::-webkit-outer-spin-button {
+			-webkit-appearance: none;
+			appearance: none;
+			margin: 0;
+		}
+		&:focus,
+		&.focus {
+			border-color: green;
+			outline: none;
+			box-shadow: none;
+		}
+	}
+}

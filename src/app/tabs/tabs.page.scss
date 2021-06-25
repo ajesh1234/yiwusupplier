@@ -1,0 +1,61 @@
+ion-tab-bar {
+  --height: 50px;
+ padding: 10px 0;
+  border-radius: 12px;
+  border-width: 0;
+  box-shadow: 0 -10px 15px 0 rgb(0 0 0 / 5%);
+}
+
+ion-tab-button {
+  height: 65px;
+  img{
+    height: 20px;
+    width: 20px;
+    object-fit: contain;
+  }
+
+ ion-icon
+  {
+   font-size: 20px;
+  }
+  ion-label{
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+
+.aftertabselect
+{
+  display: none;
+}
+
+.tab-selected
+{
+  .aftertabselect{
+    display: block;
+  }
+  .beforeabselect
+  {
+    display: none;
+  }
+}
+
+
+/* Media */
+
+@media (max-width:400px) {
+  ion-tab-button{
+    ion-label {
+      font-size: 11px;
+      font-weight: 500;
+    }
+    ion-icon{
+      font-size: 22px;
+    }
+  }
+
+  ion-tab-bar {
+    --height: 50px;
+    padding: 5px 0;
+  }
+}

@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar class="productHeader">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <img src="assets/images/chevron.svg" />
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{userName}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #content>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="pagination($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+</ion-infinite-scroll> 
+  <div class="main_content_div" *ngIf="chat.length>0">
+    <span>
+      <div *ngFor="let userchat of chat" [ngClass]="addClass(userchat)"  >
+        <div class="inner_div">
+          <img class="user-image" src="{{userchat?.userpic}}" />
+          <div (click)="presentModal(userchat)">
+            <div class="msg_div">
+              <img  class="message-image" *ngIf="userchat?.image!=null" [src]="getImage(userchat)" >
+              <ion-label *ngIf="userchat?.message!=null">{{userchat?.message}}</ion-label>
+
+            </div>
+            <span>{{userchat?.created_at | timeAgo}}</span>
+          </div>
+        </div>
+      </div>
+<!-- 
+      <div class="right_div">
+        <div class="inner_div">
+          <div>
+            <div class="msg_div">
+              <ion-label>People are asking me about theme development of our tasking.</ion-label>
+            </div>
+            <span>3m</span>
+          </div>
+          <img src="assets/images/allpro1.png" />
+        </div>
+      </div>
+
+      <div class="left_div">
+        <div class="inner_div">
+          <img src="assets/images/orderimg1.png" />
+          <div>
+            <div class="msg_div">
+              <ion-label>Ok</ion-label>
+            </div>
+            <span>Now</span>
+          </div>
+        </div>
+      </div> -->
+    </span>
+    <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="pagination($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div>
+  <img class="show-image" *ngIf="image!=null && image!='' " src= "{{image}}">
+  <ion-icon name="close" *ngIf="image!=null && image!='' " (click)="close()"></ion-icon>
+  </div>
+  <div class="footer_div">
+    <ion-icon name="attach-outline" (click)="selectImage()"></ion-icon>
+
+    <ion-input type="text" placeholder="Type your message" [(ngModel)]="message" name="message">
+    </ion-input>
+      <img src="../../assets/images/Send_Button.png"  (click)="sendMessage()">
+    <!-- <img src="assets/images/smile.svg"  /> -->
+
+    <!-- <div class="chat_div">
+      <ion-icon name="navigate"></ion-icon>
+    </div> -->
+  </div>
+</ion-footer>

@@ -1,0 +1,71 @@
+<ion-content class="center">
+  <div class="p15">
+    <div class="ion-text-center">
+      <img src="assets/images/logo.png" alt="" />
+    </div>
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <h1>Login</h1>
+          <p>Enter  detail  below to access account</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <form [formGroup]="loginForm">
+            <ion-list lines="none">
+              <div class="labeltxt">EMAIL ADDRESS</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-input type="email" formControlName="email" clearOnEdit="false" placeholder="Enter your email address" name="email" autocapitalize="off" required>
+                  <img src="assets/images/email.png" alt="" />
+                </ion-input>
+              </ion-item>
+            </ion-list>
+            <div class="error-message" *ngIf="isControlHasError('email','required')">
+              <p class="fs-11 mgt-5 txt-light">Please enter email address.</p>
+            </div>
+            <div class="error-message" *ngIf="isControlHasError('email','email')">
+              <p class="fs-11 mgt-5 txt-light">Please enter valid email address.</p>
+            </div>
+            
+
+            <ion-list lines="none">
+              <div class="labeltxt">PASSWORD</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-input type="password" formControlName="password"  clearOnEdit="false" placeholder="Enter your password" name="password" autocapitalize="off" required>
+                  <img src="assets/images/padlock.png" alt="" />
+                </ion-input>
+              </ion-item>
+            </ion-list>
+            <div class="error-message" *ngIf="isControlHasError('password','required')">
+              <p class="fs-11 mgt-5 mgb-0 txt-light">Please enter your password.</p>
+            </div>
+    
+
+            <ion-list lines="none" class="termCondition">
+              <ion-item lines="none" class="ion-no-padding">
+                <div slot="start" class="ion-flex">
+                  <ion-checkbox slot="start" [(ngModel)]="remember" [ngModelOptions]="{standalone: true}"></ion-checkbox>
+                  <ion-label>Remember Password</ion-label>
+                </div>
+
+                <div slot="end" class="forzindex">
+                  <a routerLink="/forgotpassword"> Forgot Password? </a>
+                </div>
+              </ion-item>
+            </ion-list>
+
+            <ion-button shape="round"  (click)="login()" class="round" color="secondary" type="submit" expand="full">Login</ion-button>
+          </form>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="productHeader ion-text-center">
+    <div class="logintext"> Don’t have an account? <a routerLink="/signup">Sign Up Here</a></div>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,274 @@
+<ion-header>
+  <ion-toolbar class="productHeader">
+    <ion-buttons slot="start">
+      <ion-button routerLink="/login">
+        <img src="assets/images/leftarrow.png" class="backbtn" />
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="p15">
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <h1>Create an Account</h1>
+          <p>Enter  detail  below to access account</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <form [formGroup]="signupForm">
+            <ion-list lines="none">
+              <div class="labeltxt">COMPANY NAME</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-input type="text" clearOnEdit="false" placeholder="Enter your full name" formControlName="name" autocapitalize="off" required>
+                  <img src="assets/images/user.png" alt="" />
+                </ion-input>
+              </ion-item>
+              <p
+              class="error"
+              *ngIf="signupForm.get('name').hasError('required') && signupForm.get('name').touched"
+            >
+             Please enter full Name.
+            </p>
+            </ion-list>
+
+            <ion-list lines="none">
+              <div class="labeltxt">EMAIL ADDRESS</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-input type="email" clearOnEdit="false" placeholder="Enter your email address" formControlName="email" autocapitalize="off" required>
+                  <img src="assets/images/email.png" alt="" />
+                </ion-input>
+              </ion-item>
+              <p
+              class="error"
+              *ngIf="signupForm.get('email').hasError('required') && signupForm.get('email').touched"
+            >
+              Please enter email address.
+            </p>
+            <p
+              class="error"
+              *ngIf="signupForm.get('email').hasError('pattern') && signupForm.get('email').touched"
+            >
+              Invalid email address.
+            </p>
+            </ion-list>
+      
+
+            <ion-list lines="none">
+              <div class="labeltxt">PHONE NUMBER</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-input (ionChange)="checkLength()" clearOnEdit="false" type="tel"  placeholder="Enter your phone number" formControlName="phonenumber" autocapitalize="off" required>
+                  <img src="assets/images/phone-numbers.png" alt="" />
+                </ion-input>
+              </ion-item>
+              <p
+              class="error"
+              *ngIf="signupForm.get('phonenumber').hasError('required') && signupForm.get('phonenumber').touched"
+            >
+              Please enter phone number.
+            </p>
+            <p
+            class="error" *ngIf="isSubmit && isControlHasError('phonenumber','minlength')">
+             Please enter valid 10 digits.
+          </p>
+            <p
+            class="error" *ngIf="isControlHasError('phonenumber','maxlength') || isControlHasError('phonenumber','pattern')">
+             Please enter valid 10 digits.
+          </p>
+            </ion-list>
+            <ion-list lines="none">
+              <div class="labeltxt">COUNTRY</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ionic-selectable
+                formControlName="country" 
+                [items]="getCountries"
+                itemValueField="country_name"
+                itemTextField="country_name"
+                (onChange)="CountryChange($event)"
+                [canSearch]="true"
+                [ngModelOptions]="{standalone: true}"
+                ></ionic-selectable>
+              </ion-item>
+            </ion-list>
+       
+            <ion-list lines="none">
+              <div class="labeltxt">REGISTRATION NUMBER</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-input type="text" clearOnEdit="false" placeholder="Enter registration number" formControlName="registration_no" autocapitalize="off" required>
+                  <img src="assets/images/padlock.png" alt="" />
+                </ion-input>
+              </ion-item>
+              <p class="error"
+              *ngIf="signupForm.get('registration_no').hasError('required') && signupForm.get('registration_no').touched"
+            >Please enter registration number.  </p>       
+            </ion-list>
+
+            <ion-list lines="none" class="selectimg">
+              <div class="labeltxt">Who are You?</div>
+              <img src="assets/images/address.png" alt="" />
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-select formControlName ="type" okText="Okay" cancelText="Dismiss" (ionChange)="selectOption()">
+                  <ion-select-option  *ngFor="let val of typeArray" value="{{val}}">{{val}}</ion-select-option>
+                 </ion-select>
+              </ion-item>
+              <p class="error"
+              *ngIf="signupForm.get('type').hasError('required') && signupForm.get('type').touched"
+            >Please select who are you.  </p>       
+            </ion-list>
+
+            <ion-list *ngIf="(signupForm.value.type == 'Product Supplier') || (signupForm.value.type =='Product and Service Supplier')">
+              <ion-button (click)="showCheck()" style="width: 100%;">Select category <span *ngIf="categoryDisplayArray.length>0"> ({{categoryDisplayArray.length}} Selected)</span></ion-button>
+              <!-- <div class="cat-val" *ngFor="let cdata of categoryDisplayArray; let i =index">{{cdata?.name}}
+                <ion-icon name="close-outline" (click)="remove(i, cdata)"></ion-icon>
+              </div>             -->
+            </ion-list>
+            <div style="height: 282px; overflow: scroll;" *ngIf="show && categoryData.length>0 ">
+              <ion-list class="ion-no-padding" >
+                <div menucat *ngFor="let data of categoryData; let i = index" style="width: 100%;">
+                 <ion-item lines="none"  style="    float: left;
+                 width: 73%;" >
+                  <ion-checkbox slot="end" (ionChange)="checkEvent(data, data.isChecked, 'main_cat##')" [(ngModel)]="data.isChecked" [ngModelOptions]="{standalone: true}"></ion-checkbox>    
+                  {{data.name}}
+                     </ion-item>
+                     <ion-icon style="    margin-left: 4px;
+                     float: right;
+                     width: 20%;
+                     margin-top: 16px;" slot="end" class="rarrow-w" (click)="toggleLevel1('idx'+i)"  [name]="isLevel1Shown('idx'+i)? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon> 
+                     <ion-list lines="none"  *ngIf="isLevel1Shown('idx'+i)" style="    width: 100%;">
+                      <div style="padding-right: 80px; padding-left: 35px;" *ngFor="let subData of data.sub_and_child_cat let i2 = index">
+                        <ion-item  text-wrap  class="sub-menu"  [ngClass]="{active: isLevel2Shown('idx'+i+'idx'+i2)}" >
+                         <ion-checkbox slot="end" [ngModelOptions]="{standalone: true}" (ionChange)="checkEvent(subData, subData.isChecked, 'sub_cat##')" [(ngModel)]="subData.isChecked"></ion-checkbox>    
+                         {{subData.name}} 
+                       </ion-item>
+                       <ion-icon slot="end" class="rarrow-w" *ngIf="subData?.childs.length>0" (click)="toggleLevel2('idx'+i+'idx'+i2, data,subData)"  [name]="isLevel2Shown('idx'+i+'idx'+i2) ? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon> 
+            
+                      <ion-list *ngIf="isLevel2Shown('idx'+i+'idx'+i2)">
+                        <ion-item *ngFor="let childdata of subData.childs" text-wrap  class="sub-menu" menuclose  >
+                           <ion-checkbox slot="end" [ngModelOptions]="{standalone: true}" (ionChange)="checkEvent(childdata, childdata.isChecked, 'child_cat##')" [(ngModel)]="childdata.isChecked"></ion-checkbox>    
+                           {{childdata.name}}
+                        </ion-item>
+                      </ion-list>
+                    </div>
+                    </ion-list>
+                  </div>
+                </ion-list>
+            </div>
+            <ion-list *ngIf="(signupForm.value.type == 'Service Supplier' ) || (signupForm.value.type =='Product and Service Supplier')">
+              <ion-button (click)="showServieCheck()" style="width: 100%;">Select Service Category <span *ngIf="serviceArray.length>0"> ({{serviceArray.length}} Selected)</span></ion-button>
+              <!-- <div class="cat-val" *ngFor="let cdata of categoryDisplayArray; let i =index">{{cdata?.name}}
+                <ion-icon name="close-outline" (click)="remove(i, cdata)"></ion-icon>
+              </div>             -->
+            </ion-list>
+            <div style="height: 282px; overflow: scroll;" *ngIf="showService && serviceData.length>0">
+              <ion-list class="ion-no-padding" >
+                <div menucat *ngFor="let sdata of serviceData; let i = index" style="width: 100%;">
+                 <ion-item lines="none"  style="    float: left;
+                 width: 73%;" >
+                  <ion-checkbox slot="end" (ionChange)="checkServiceEvent(sdata, sdata.isChecked,'main_cat##')" [(ngModel)]="sdata.isChecked" [ngModelOptions]="{standalone: true}"></ion-checkbox>    
+                  {{sdata.name}}
+                     </ion-item>    
+                     <ion-icon style="    margin-left: 4px;
+                     float: right;
+                     width: 20%;
+                     margin-top: 16px;" slot="end" class="rarrow-w" (click)="servicetoggleLevel1('idx'+i)"  [name]="serviceisLevel1Shown('idx'+i)? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon> 
+                     <ion-list lines="none"  *ngIf="serviceisLevel1Shown('idx'+i)" style="    width: 100%;">
+                      <div style="padding-right: 80px; padding-left: 35px;" *ngFor="let seervicesubData of sdata.sub_and_child_cat let i2 = index">
+                        <ion-item  text-wrap  class="sub-menu"  [ngClass]="{active: serviceisLevel2Shown('idx'+i+'idx'+i2)}" >
+                         <ion-checkbox slot="end" [ngModelOptions]="{standalone: true}" (ionChange)="checkServiceEvent(seervicesubData, seervicesubData.isChecked, 'sub_cat##')" [(ngModel)]="seervicesubData.isChecked"></ion-checkbox>    
+                         {{seervicesubData.name}} 
+                       </ion-item>
+                       <ion-icon slot="end" class="rarrow-w" *ngIf="seervicesubData?.childs.length>0" (click)="servicetoggleLevel2('idx'+i+'idx'+i2, data,subData)"  [name]="serviceisLevel2Shown('idx'+i+'idx'+i2) ? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon> 
+                       <ion-list *ngIf="serviceisLevel2Shown('idx'+i+'idx'+i2)">
+                        <ion-item *ngFor="let childdata of seervicesubData.childs" text-wrap  class="sub-menu" menuclose  >
+                           <ion-checkbox slot="end" [ngModelOptions]="{standalone: true}" (ionChange)="checkServiceEvent(childdata, childdata.isChecked, 'child_cat##')" [(ngModel)]="childdata.isChecked"></ion-checkbox>    
+                           {{childdata.name}}
+                        </ion-item>
+                      </ion-list>
+                    </div>
+                    </ion-list>            
+                  </div>
+                </ion-list>
+            </div>
+              <ion-list lines="none">
+              <div class="labeltxt">Describe your company in more details</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-textarea clearOnEdit="false"  formControlName="details"></ion-textarea>
+              </ion-item>
+              <p class="error"
+              *ngIf="signupForm.get('details').hasError('required') && signupForm.get('details').touched"
+            >Please enter details.  </p>   
+            </ion-list>
+
+            <ion-list lines="none">
+              <div class="labeltxt">PASSWORD</div>
+              <!-- (keyup)="comparePassword()" -->
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-input type="password"  clearOnEdit="false"  placeholder="Enter your password" formControlName="password" autocapitalize="off" required>
+                  <img src="assets/images/padlock.png" alt="" />
+                </ion-input>
+              </ion-item>         		
+					<p class="error" *ngIf="isControlHasError('password','required')">
+					Please enter your password.</p>
+					<p class="error" *ngIf="isControlHasError('password','pattern')">
+            Password must contains 5 alphanumeric characters( atleast 1 letter and 1 number ).</p>
+            </ion-list>
+
+            <ion-list lines="none">
+              <div class="labeltxt">Confirm PASSWORD</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <!-- (keyup)="comparePassword()" -->
+                <ion-input type="password" clearOnEdit="false" placeholder="Enter your confirm password" formControlName="confirmpassword"  autocapitalize="off" required>
+                  <img src="assets/images/padlock.png" alt="" />
+                </ion-input>
+              </ion-item>
+              <p
+              class="error"
+              *ngIf="signupForm.get('confirmpassword').hasError('required') && signupForm.get('confirmpassword').touched"
+            >
+              Please enter confirm password.
+            </p>
+            <p class="error" *ngIf="isControlHasError('confirmpassword','minlength')">
+              Please enter minimum 6 characters.</p>
+            <p class="error" *ngIf="signupForm.controls.confirmpassword.touched && signupForm.hasError('mismatchedPasswords') && signupForm.controls.password.valid">Password and Confirm password didn't match</p>
+            </ion-list>
+
+            <ion-list lines="none">
+              <div class="labeltxt">Verification Document</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <div class="newfileupload">
+                  <label for="fupload" class="fileupld">Enter</label>
+                  <input type="file" id="fupload"  multiple class="file-upload" (change)="upload($event.target)">
+              </div>
+              </ion-item>
+            </ion-list>
+            <ion-list>
+              <ion-item lines="none"  *ngFor ="let images of imageArray; let i = index"> 
+                <div class="images" >
+                <p>{{images.name}}</p>
+                <span (click)="delete(i)">Delete</span>
+                </div>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none" class="termCondition">
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-label>I agree to the <a (click)="presentModal('terms')"> terms & conditions </a> and <a (click)="presentModal('Privacy-and-Cookies-Policy')"> privacy policy </a></ion-label>
+                <ion-checkbox slot="start" formControlName="terms"></ion-checkbox>
+              </ion-item>
+              <p class="error" *ngIf="signupForm.get('terms').hasError('pattern') && signupForm.get('terms').touched"
+              >Select terms and conditions.</p>
+            </ion-list>
+
+            <ion-button shape="round" class="round" color="secondary" expand="full" (click)="signup()" >Sign Up</ion-button>
+
+            <div class="logintext"> Already have an account? <a routerLink="/login">Login Here</a></div>
+          </form>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

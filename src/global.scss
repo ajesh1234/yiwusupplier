@@ -1,0 +1,522 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+/* Fonts */
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-Bold.woff2') format('woff2'),
+      url('assets/fonts/Montserrat-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-BoldItalic.woff2') format('woff2'),
+      url('assets/fonts/Montserrat-BoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-ExtraBoldItalic.woff2') format('woff2'),
+      url('assets/fonts/Montserrat-ExtraBoldItalic.woff') format('woff');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-Black.woff2') format('woff2'),
+      url('assets/fonts/Montserrat-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-BlackItalic.woff2') format('woff2'),
+      url('assets/fonts/Montserrat-BlackItalic.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-ExtraBold.woff2') format('woff2'),
+      url('assets/fonts/Montserrat-ExtraBold.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-Italic.woff2') format('woff2'),
+      url('assets/fonts/Montserrat-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-ExtraLightItalic.woff2') format('woff2'),
+      url('assets/fonts/Montserrat-ExtraLightItalic.woff') format('woff');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-LightItalic.woff2') format('woff2'),
+      url('assets/fonts/Montserrat-LightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-Light.woff2') format('woff2'),
+      url('assets/fonts/Montserrat-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-ExtraLight.woff2') format('woff2'),
+      url('assets/fonts/Montserrat-ExtraLight.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-Medium.woff2') format('woff2'),
+      url('assets/fonts/Montserrat-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-SemiBoldItalic.woff2') format('woff2'),
+      url('assets/fonts/Montserrat-SemiBoldItalic.woff') format('woff');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-SemiBold.woff2') format('woff2'),
+      url('assets/fonts/Montserrat-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-Regular.woff2') format('woff2'),
+      url('assets/fonts/Montserrat-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-MediumItalic.woff2') format('woff2'),
+      url('assets/fonts/Montserrat-MediumItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-Thin.woff2') format('woff2'),
+      url('assets/fonts/Montserrat-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-ThinItalic.woff2') format('woff2'),
+      url('assets/fonts/Montserrat-ThinItalic.woff') format('woff');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+*{
+  font-family: "Montserrat" !important;
+}
+
+/* Custom Css */
+ion-title {
+  font-weight: 500;
+}
+
+ion-header {
+  // height: 56px;
+  display: flex;
+  align-items: center;
+  .backbtn{
+    position: relative;
+    top: 2px;
+    &:focus{
+      outline: none;
+      border: none;
+    }
+  }
+  .backbtn{
+    position: relative;
+    top: 0;
+    &:focus{
+      outline: none;
+      border: none;
+    }
+  }
+}
+
+ion-input {
+  height: 70px;
+  border: 1px solid #E5E5E5;
+  border-radius: 100px;
+  img{
+    width: 22px;
+    margin-right: 11px;
+    height: 22px;
+    object-fit: contain;
+    margin-left: 25px;
+    position: relative;
+    top: 0;
+  }
+  input{
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    height: 70px;
+    font-size: 16px;
+  }
+}
+
+.selectimg{
+  img{
+    width: 22px;
+    margin-right: 11px;
+    height: 22px;
+    object-fit: contain;
+    margin-left: 25px;
+    position: absolute;
+    top: 52px;
+    left: 0;
+    z-index: 2;
+  }
+  ion-select {
+    height: 70px;
+    border: 1px solid #E5E5E5;
+    border-radius: 100px;
+    width: 100%;
+    padding-left: 57px;
+    font-size: 16px;
+  }
+}
+
+ion-textarea {
+  border: 1px solid #E5E5E5;
+  border-radius: 30px;
+  height: 114px;
+  padding: 5px 20px;
+}
+
+
+ion-title.md {
+  position  : absolute;
+  top       : 18px;
+  left      : 0;
+  right     : 0;
+  width     : 80%;
+  margin:0 auto;
+  text-align: center !important;
+  display   : block;
+  font-size: 18px;
+}
+
+.p15
+{
+  padding: 0 15px;
+}
+
+.labeltxt {
+  text-align: left;
+  padding-left: 10px;
+  font-size: 12px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  color: #9B9B9B;
+}
+
+.header-md::after
+{
+  background-image: none;
+}
+
+.productHeader {
+  // --background: transparent;
+  --border-width: 0px !important;
+  border: 0;
+  --box-shadow:none;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+ion-title{
+  text-align: center;
+}
+
+ion-buttons{
+  &.focus{
+    outline: none;
+    border: none;
+  }
+  &.active{
+    border: none;
+    outline: none;
+  }
+  ion-button{
+    &.focus{
+      outline: none;
+      border: none;
+    }
+    &.active{
+      border: none;
+      outline: none;
+    }
+  }
+}
+
+/* Upload Image */
+.newfileupload {
+  width: 100%;
+  .fileupld {
+    display: block;
+    color: black;
+    font-weight: bold;
+    letter-spacing: 1.2px;
+    font-size: 18px;
+    padding-bottom: 5px;
+  }
+  input[class="file-upload"] {
+    display: none;
+  }
+  label[for="fupload"] {
+    background: transparent;
+    height: 132px;
+    background-image: url('assets/images/verification.png');
+    background-repeat: no-repeat;
+    background-position: top 30px center;
+    position: relative;
+    background-size: 15%;
+    color: transparent;
+    width: 100%;
+    border: 2px dashed #E1E1E1;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: 400ms ease;
+    border-radius: 30px;
+  }
+  label[for="fupload"]:before {
+    content: "Upload (Max 5) Images/Videos";
+    display: block;
+    position: absolute;
+    top: 71%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: var(--ion-color-primary);
+    font-weight: 600;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+
+  }
+  label[for="fupload"]:after {
+    display: none;
+    content: 'Browse';
+    background: #16a317;
+    width: 86px;
+    height: 27px;
+    line-height: 27px;
+    position: absolute;
+    bottom: 19px;
+    font-size: 14px;
+    color: white;
+    font-weight: 500;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  .file_names {
+    display: block;
+    position: absolute;
+    color: black;
+    left: 0;
+    bottom: -30px;
+    font-size: 13px;
+    font-weight: 300;
+    text-align: center;
+  }
+}
+.newfileupload label[for="fupload"].changed,
+.newfileupload label[for="fupload"]:hover {
+  background-color: #fff;
+}
+
+.round{
+  --border-radius: 100px;
+  height: 55px;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0px 4px 8px 0px rgb(211 38 38 / 25%);
+  border-radius: 100px;
+}
+
+.logintext {
+  font-weight: 600;
+  margin: 20px 0;
+  a{
+    font-weight: 600 !important;
+  }
+}
+
+a{
+  color: var(--ion-color-primary);
+  font-weight: 500;
+  text-decoration: none;
+  &:focus{
+    color: #000;
+  }
+}
+
+
+.forzindex
+{
+  z-index: 2;
+  position: relative;
+}
+
+ion-item {
+  --ripple-color: transparent;
+  --background-activated: transparent;
+}
+
+.segment-button-checked
+{
+  overflow: hidden !important;
+}
+
+ion-item:hover {
+  --background-hover: transparent !important;
+}
+
+.no-data{
+  text-align: center;
+  font-size: 18px;
+  margin-top: 50%;
+  color:  var(--ion-color-primary);
+}
+.ionic-selectable-value-item {
+  margin-left: 57px !important;
+}
+.reviews-btn ion-button.activated {
+  border: 2px solid transparent;
+  color: transparent !important;
+  --background: transparent !important;
+  background: transparent;
+  --background-focused: transparent;
+  --background-hover: transparent;
+  --background-activated: transparent;
+}
+p.error {
+  color: red !important;
+  text-align: left;
+  margin-left: 7px !important;
+}
+
+.error-message p {
+  text-align: left;
+  margin-left: 9px;
+  color: red !important;
+}
+
+@media (max-width:400px)
+{
+  ion-input {
+    height: 55px !important;
+    font-size: 14px !important;
+  }
+
+  .selectimg{
+    ion-select{
+      height: 56px;
+      font-size: 14px !important;
+    }
+  }
+
+  .p15 {
+    padding: 0 8px;
+  }
+
+  .catslider ion-slides ion-slide img {
+    height: 140px;
+  }
+
+  .catslider .swiper-pagination-bullet-active {
+    top: 1px;
+  }
+}

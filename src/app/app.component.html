@@ -1,0 +1,133 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay" side="start">
+      <ion-content>
+        <ion-list class="ion-no-padding">
+          <div menucat *ngFor="let data of categoryData; let i = index">
+           <ion-item lines="none" (click)="toggleLevel1('idx'+i)" >
+            <img  slot="start" class="colwhite" src="{{data.photo}}">
+            {{data.name}}
+             <ion-icon slot="end" class="rarrow-w"  [name]="isLevel1Shown('idx'+i)? 'chevron-down-outline' : 'chevron-forward-outline'" ></ion-icon> 
+               </ion-item>
+               <ion-list lines="none" *ngIf="isLevel1Shown('idx'+i)">
+                <div *ngFor="let subData of data.sub_and_child_cat let i2 = index">
+                 <ion-item  text-wrap  class="sub-menu" (click)="toggleLevel2('idx'+i+'idx'+i2, data,subData)" [ngClass]="{active: isLevel2Shown('idx'+i+'idx'+i2)}" >
+                    {{subData.name}} 
+                   <ion-icon slot="end" class="rarrow-w"  *ngIf="subData.childs.length>0" [name]="isLevel2Shown('idx'+i+'idx'+i2) ? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon> 
+                     <ion-list *ngIf="isLevel2Shown('idx'+i+'idx'+i2)">
+                    <ion-item *ngFor="let childdata of subData.childs" text-wrap  class="sub-menu" menuclose (click)="goToChild(data,subData,childdata)" >
+                      {{childdata.name}}
+                    </ion-item>
+                  </ion-list>
+                </ion-item>
+              </div>
+              </ion-list>
+            <!-- </ion-menu-toggle> -->
+            </div>
+          </ion-list>
+		 <!-- <ion-list class="ion-no-padding">
+		<div menucat>
+		 <ion-item lines="none" (click)="isHome === 1 ? isHome = 0 : isHome = 1">
+			<img  slot="start" class="colwhite" src="assets/images/homeicon.png">
+		  Home Appliances
+		   <ion-icon slot="end" class="rarrow-w"  [name]="isHome? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon> 
+         </ion-item>
+      
+      <ion-menu-toggle auto-hide="false">
+        <ion-list lines="none">
+          <ion-item menuclose [hidden]="!isHome" [routerLink]="['/']"
+            [queryParams]="{ type: 'elifbrand' }" menuClose class="sub-menu">
+          Eif Brand
+          </ion-item>
+        </ion-list>
+      </ion-menu-toggle>
+	    </div>
+		<div menucat>
+		 <ion-item lines="none" (click)="isFashion === 1 ? isFashion = 0 : isFashion = 1">
+			<img  slot="start" class="colwhite" src="assets/images/hair-pin.png"> 
+		Fashion Accessories
+		   <ion-icon slot="end" class="rarrow-w"  [name]="isFashion? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon> 
+         </ion-item>
+      
+      <ion-menu-toggle auto-hide="false">
+        <ion-list lines="none">
+          <ion-item menuclose [hidden]="!isFashion" [routerLink]="['/']"
+            [queryParams]="{ type: 'hairpins' }" menuClose class="sub-menu">
+             Hairpins
+          </ion-item>
+		   <ion-item menuclose [hidden]="!isFashion" [routerLink]="['/']"
+            [queryParams]="{ type: 'hairclaws' }" menuClose class="sub-menu">
+             Hair Claws
+          </ion-item>
+		   <ion-item menuclose [hidden]="!isFashion" [routerLink]="['/']"
+            [queryParams]="{ type: 'elastichairbrands' }" menuClose class="sub-menu">
+             Elastic Hair Brands
+          </ion-item>
+        </ion-list>
+      </ion-menu-toggle>
+	    </div>
+		<div menucat>
+		 <ion-item lines="none" (click)="isAutomotive === 1 ? isAutomotive = 0 : isAutomotive = 1">
+			<img  slot="start" class="colwhite" src="assets/images/car.png">
+		     Automotive Accessories
+		   <ion-icon slot="end" class="rarrow-w"  [name]="isAutomotive? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon> 
+         </ion-item>
+      
+      <ion-menu-toggle auto-hide="false">
+        <ion-list lines="none">
+          <ion-item menuclose [hidden]="!isAutomotive" [routerLink]="['/']"
+            [queryParams]="{ type: 'Rearviewmirror' }" menuClose class="sub-menu">
+             Rearview mirror
+          </ion-item>
+		   <ion-item menuclose [hidden]="!isAutomotive" [routerLink]="['/']"
+            [queryParams]="{ type: 'carexterior' }" menuClose class="sub-menu">
+            Car Exterior
+          </ion-item>
+		   <ion-item menuclose [hidden]="!isAutomotive" [routerLink]="['/']"
+            [queryParams]="{ type: 'lighting' }" menuClose class="sub-menu">
+            Lighting
+          </ion-item>
+		   <ion-item menuclose [hidden]="!isAutomotive" [routerLink]="['/']"
+            [queryParams]="{ type: 'electronicappliances' }" menuClose class="sub-menu">
+            Electronic Appliances
+          </ion-item>
+        </ion-list>
+      </ion-menu-toggle>
+	    </div>
+		<div menucat>
+		 <ion-item lines="none">
+			<img  slot="start" class="colwhite" src="assets/images/nail.png">
+		     Nail Art Equipment
+		   <ion-icon slot="end" class="rarrow-w"  [name]="'chevron-forward-outline'"></ion-icon> 
+         </ion-item>
+	    </div>
+		<div menucat>
+		 <ion-item lines="none" (click)="isBeauty === 1 ? isBeauty = 0 : isBeauty = 1">
+			<img  slot="start" class="colwhite" src="assets/images/beauty.png">
+		    Beauty & Personal Care
+		   <ion-icon slot="end" class="rarrow-w"  [name]="isBeauty? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon> 
+         </ion-item>
+      
+      <ion-menu-toggle auto-hide="false">
+        <ion-list lines="none">
+          <ion-item menuclose [hidden]="!isBeauty" [routerLink]="['/']"
+            [queryParams]="{ type: 'face' }" menuClose class="sub-menu">
+             Face
+          </ion-item>
+		   <ion-item menuclose [hidden]="!isBeauty" [routerLink]="['/']"
+            [queryParams]="{ type: 'eyes' }" menuClose class="sub-menu">
+            Eyes
+          </ion-item>
+		   <ion-item menuclose [hidden]="!isBeauty" [routerLink]="['/']"
+            [queryParams]="{ type: 'lips' }" menuClose class="sub-menu">
+            Lips
+          </ion-item>
+        </ion-list>
+      </ion-menu-toggle>
+	    </div>
+        </ion-list> -->
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

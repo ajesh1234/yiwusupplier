@@ -1,0 +1,142 @@
+ion-title{
+  font-size: 18px;
+}
+
+ion-chip {
+  margin: 6px;
+  ion-avatar{
+    position: relative;
+    top: -11px;
+    --border-radius: 0;
+    img{
+      object-fit: contain;
+      width: 25px;
+      height: 25px;
+    }
+  }
+  padding: 0px 25px 0px;
+  height: 100px;
+  display: flex;
+  color: #fff;
+  align-items: center;
+  ion-label{
+    font-size: 24px;
+    font-weight: bold;
+  }
+  p {
+    margin: 10px 0 0;
+    font-size: 14px;
+  }
+  &.completed{
+    background-color: #F57212;
+  }
+
+  &.pending{
+    background-color: #39D6C3;
+  }
+
+  &.canceled{
+    background-color: #9E2323;
+  }
+
+  &.ongoing{
+    background-color: #6348AE;
+  }
+
+  &.products{
+    background-color: #594DBF;
+  }
+
+  &.earning{
+    background-color: #129021;
+  }
+
+}
+
+h2{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 21px;
+  position: relative;
+  font-weight: 600;
+  margin-bottom: 5px;
+  a{
+      text-decoration: none;
+      font-size: 14px;
+      &:hover{
+          color: #000;
+      }
+  }
+}
+
+ion-item-sliding{
+  margin-bottom: 6px;
+  background: rgba(175, 36, 30, 0.05);
+  padding: 15px;
+  border-radius:15px;
+
+  ion-item{
+    align-items: baseline;
+    --ion-safe-area-right: 0;
+    --background: transparent;
+    ion-label{
+      text-overflow: initial;
+      overflow: inherit;
+      white-space: normal;
+      margin-inline: 0;
+      margin: 0;
+      p{
+        color: #000;
+        font-size: 12px;
+        line-height: 20px;
+        font-weight: 300;
+      }
+    }
+
+    ion-note {
+      margin: 0 5px 0px 10px;
+      font-size: 12px;
+      font-weight: 300;
+    }
+  }
+}
+
+.item-detail-icon
+{
+  display: none !important;
+}
+
+ion-item-options{
+  ion-item-option{
+    border-radius: 5px;
+    ion-icon{
+      font-size: 14px;
+      margin: 0;
+    }
+  }
+}
+
+.mt45
+{
+  margin-top: 20px;
+}
+
+.fleximg
+{
+    display: flex;
+    img
+    {
+        height: 50px;
+        width: 50px;
+        border-radius: 100px;
+        margin-right: 13px;
+    }
+    h3{
+      color: rgba(0, 0, 0, 0.6);
+      font-weight: 400;
+      line-height: 20px;
+    }
+
+
+}

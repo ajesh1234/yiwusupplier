@@ -1,0 +1,215 @@
+<ion-header>
+  <ion-toolbar class="productHeader">
+    <!-- <ion-menu-button slot="start"> -->
+      <!-- <img src="assets/images/menu.svg" class="backbtn1" /> -->
+    <!-- </ion-menu-button> -->
+	  <ion-buttons slot="start">
+      <ion-button routerLink="/tabs/settings">
+        <img  class="backbtn1" src="assets/images/chevron.svg" />
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <div class="profileHead" [ngStyle]="{'background-image':'url(assets/images/pbg.png)'}">
+    <div class="edit-image-div">
+      <img src="../assets/icon/Camera_Icon.png" class="edit-image" (click)="selectImage()"> 
+   </div>
+    <div class="imgbox" (click)="selectImage()"> <img src="{{userData?.image}}" alt="" /> </div>
+    <h2>{{userData?.name}}</h2>
+    <h3>{{userData?.email}}</h3>
+  </div>
+
+  <div class="p15 mt45">
+    <ion-segment [(ngModel)]="profile" color="primary" (ionChange)="segmentChanged($event)">
+      <ion-segment-button lines="no" value="basicinfo">
+          <span>Basic Info</span>
+      </ion-segment-button>
+      <ion-segment-button value="cpassword">
+        <span>Change Password</span>
+      </ion-segment-button>
+    </ion-segment>
+    <div [ngSwitch]="profile">
+      <div *ngSwitchCase="'basicinfo'">
+        <form [formGroup]="basicinfoForm">
+          <ion-list lines="none">
+            <div class="labeltxt">NAME</div>
+            <ion-item lines="none" class="ion-no-padding">
+              <ion-input type="text"  clearOnEdit="false" disabled formControlName="name" style="font-size: 15px !important;" placeholder="Maria James" name="text" autocapitalize="off" >
+              </ion-input>
+            </ion-item>
+          </ion-list>
+          <div class="error-message" *ngIf="isControlHasError('name','required')">
+            <p class="fs-11 mgt-5 txt-light">Please enter name.</p>
+          </div>
+         
+          <ion-list lines="none">
+            <div class="labeltxt">EMAIL ADDRESS</div>
+            <ion-item lines="none" class="ion-no-padding">
+              <ion-input type="text"   clearOnEdit="false" disabled formControlName="email" style="font-size: 15px !important;" placeholder="mariajames@gmail.com" name="text" autocapitalize="off" >
+              </ion-input>
+            </ion-item>
+          </ion-list>
+          <div class="error-message" *ngIf="isControlHasError('email','required')">
+            <p class="fs-11 mgt-5 txt-light">Please enter email address.</p>
+          </div>
+          <div class="error-message" *ngIf="isControlHasError('email','email')">
+            <p class="fs-11 mgt-5 txt-light">Please enter valid email address.</p>
+          </div>
+          <ion-list lines="none">
+            <div class="labeltxt">PHONE NUMBER</div>
+            <ion-item lines="none" class="ion-no-padding">
+              <ion-input type="text"  clearOnEdit="false" formControlName="phone" style="font-size: 15px !important;" placeholder="9874158743" name="text" autocapitalize="off" >
+              </ion-input>
+            </ion-item>
+          </ion-list>
+          <div class="error-message" *ngIf="isControlHasError('phone','required')">
+            <p class="fs-11 mgt-5 txt-light">Please enter phone number.</p>
+          </div>
+          <div class="error-message" *ngIf="isControlHasError('phone','maxlength') || isControlHasError('phone','pattern')">
+            <p class="fs-11 mgt-5 txt-light"> Please enter valid 10 digits.</p>
+          </div>
+          <div class="error-message" *ngIf=" isSubmit && isControlHasError('phone','minlength') ">
+            <p class="fs-11 mgt-5 txt-light"> Please enter valid 10 digits.</p>
+          </div>
+          <ion-list lines="none">
+            <div class="labeltxt">REGISTRATION NUMBER</div>
+            <ion-item lines="none" class="ion-no-padding">
+              <ion-input type="text"  clearOnEdit="false" formControlName="registration_no" style="font-size: 15px !important;" placeholder="Maria James" name="text" autocapitalize="off" >
+              </ion-input>
+            </ion-item>
+          </ion-list>
+          <div class="error-message" *ngIf="isControlHasError('name','required')">
+            <p class="fs-11 mgt-5 txt-light">Please enter registration number.</p>
+          </div>
+         
+          <ion-list lines="none" class="selectimg">
+            <div class="labeltxt">Country</div>
+            <img src="assets/images/address.png" alt="" />
+            <ion-item lines="none" class="ion-no-padding">
+              <ionic-selectable
+              formControlName="country" 
+              [items]="getCountries"
+              itemValueField="country_name"
+              itemTextField="country_name"
+              (onChange)="CountryChange($event)"
+              [canSearch]="true"
+              ></ionic-selectable>
+              <!-- <ion-select  okText="Okay"  clearOnEdit="false" formControlName="country" cancelText="Dismiss">
+                <ion-select-option *ngFor="let countries of getCountries" [value]="countries?.country_name">{{countries.country_name}}</ion-select-option>
+               </ion-select> -->
+            </ion-item>
+          </ion-list>
+          <ion-list lines="none" class="selectimg">
+            <div class="labeltxt">Who are You?</div>
+            <img src="assets/images/address.png" alt="" />
+            <ion-item lines="none" class="ion-no-padding">
+              <ion-select formControlName ="type" okText="Okay" cancelText="Dismiss" (ionChange)="selectOption()">
+                <ion-select-option  *ngFor="let val of typeArray" [value]="val">{{val}}</ion-select-option>
+               </ion-select>
+            </ion-item>
+            <p class="error"
+            *ngIf="basicinfoForm.get('type').hasError('required') && basicinfoForm.get('type').touched"
+          >Please select who are you.  </p>       
+          </ion-list>
+          <!-- <ion-list lines="none">
+            <div class="labeltxt">CITY</div>
+            <ion-item lines="none" class="ion-no-padding">
+              <ion-input type="text"  clearOnEdit="false" placeholder="Enter city" formControlName="city" autocapitalize="off" >
+                <img src="assets/images/padlock.png" alt="" />
+              </ion-input>
+            </ion-item>     
+          </ion-list>
+          <ion-list lines="none">
+            <div class="labeltxt">ZIP</div>
+            <ion-item lines="none" class="ion-no-padding">
+              <ion-input type="number"  clearOnEdit="false" placeholder="Enter zip" maxlength="6" formControlName="zip" autocapitalize="off" >
+                <img src="assets/images/padlock.png" alt="" />
+              </ion-input>
+            </ion-item>     
+          </ion-list>
+          <ion-list lines="none">
+            <div class="labeltxt">FAX</div>
+            <ion-item lines="none" class="ion-no-padding">
+              <ion-input type="text"  clearOnEdit="false" placeholder="Enter fax" formControlName="fax" autocapitalize="off" >
+                <img src="assets/images/padlock.png" alt="" />
+              </ion-input>
+            </ion-item>     
+          </ion-list> -->
+          <ion-list lines="none">
+            <div class="labeltxt">ADDRESS</div>
+            <ion-item lines="none" class="ion-no-padding">
+              <ion-textarea  clearOnEdit="false" formControlName="address" placeholder="123 Town Street , California, USA"></ion-textarea>
+            </ion-item>
+          </ion-list>
+          <div class="error-message" *ngIf="isControlHasError('address','required')">
+            <p class="fs-11 mgt-5 txt-light">Please enter address.</p>
+          </div>
+          <ion-list lines="none">
+            <div class="labeltxt">SHOP DETAILS</div>
+            <ion-item lines="none" class="ion-no-padding">
+              <ion-textarea  clearOnEdit="false" formControlName="details" ></ion-textarea>
+            </ion-item>
+          </ion-list>
+          <div class="error-message" *ngIf="isControlHasError('details','required')">
+            <p class="fs-11 mgt-5 txt-light">Please enter shop details.</p>
+          </div>
+          <ion-button shape="round" class="round" color="secondary" type="submit" expand="full" (click)="editProfile()">Save Changes</ion-button>
+        </form>
+      </div>
+
+      <div *ngSwitchCase="'cpassword'">
+        <form [formGroup]="changepasswordForm">
+          <ion-list lines="none">
+            <div class="labeltxt">CURRENT PASSWORD</div>
+            <ion-item lines="none" class="ion-no-padding">
+              <ion-input type="password"  clearOnEdit="false" formControlName="current_password" style="font-size: 15px !important;" placeholder="**********" name="text" autocapitalize="off" >
+              </ion-input>
+            </ion-item>
+          </ion-list>
+          <div class="error-message" *ngIf="isControlHasErrorChange('current_password','required')">
+            <p class="fs-11 mgt-5 txt-light">Please enter current password.</p>
+          </div>
+          <div class="error-message" *ngIf="isControlHasErrorChange('current_password','minlength')">
+            <p class="fs-11 mgt-5 txt-light"> 	Please enter minimum 6 characters.</p>
+          </div>
+          <ion-list lines="none">
+            <div class="labeltxt">NEW PASSWORD</div>
+            <ion-item lines="none" class="ion-no-padding">
+              <ion-input type="password"  clearOnEdit="false"  formControlName="new_password" style="font-size: 15px !important;" placeholder="**********" name="text" autocapitalize="off" >
+              </ion-input>
+            </ion-item>
+          </ion-list>
+          <div class="error-message" *ngIf="isControlHasErrorChange('new_password','required')">
+            <p class="fs-11 mgt-5 txt-light">Please enter new password.</p>
+          </div>
+          <div class="error-message" *ngIf="isControlHasErrorChange('new_password','pattern')">
+            <p class="fs-11 mgt-5 txt-light"> New Password must contains 5 alphanumeric characters( atleast 1 letter and 1 number ).</p>
+                
+          </div>
+          <ion-list lines="none">
+            <div class="labeltxt">CONFIRM NEW PASSWORD</div>
+            <ion-item lines="none" class="ion-no-padding">
+              <ion-input type="password"  clearOnEdit="false" formControlName="confirm_password" style="font-size: 15px !important;" placeholder="**********" name="text" autocapitalize="off" >
+              </ion-input>
+            </ion-item>
+          </ion-list>
+          <div class="error-message" *ngIf="isControlHasErrorChange('confirm_password','required')">
+            <p class="fs-11 mgt-5 txt-light">Please enter confirm password.</p>
+          </div>
+          <div class="error-message" *ngIf="isControlHasErrorChange('confirm_password','minlength')">
+            <p class="fs-11 mgt-5 txt-light"> 	Please enter minimum 6 characters.</p>
+          </div>
+          <div class="error-message" *ngIf="changepasswordForm.controls.confirm_password.touched && changepasswordForm.hasError('mismatchedPasswords') && changepasswordForm.controls.new_password.valid">
+            <p class="fs-11 mgt-5 txt-light"> New	Password and Confirm Passsword didn't match.</p>
+          </div>
+                               
+          <ion-button shape="round" class="round" color="secondary" (click)="changePassword()" expand="full">Save Changes</ion-button>
+        </form>
+      </div>
+    </div>
+  </div>
+</ion-content>

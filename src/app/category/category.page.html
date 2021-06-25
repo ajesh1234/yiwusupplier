@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar class="productHeader">
+    <ion-buttons slot="start">
+      <ion-button routerLink="/tabs/settings">
+        <img src="assets/images/chevron.svg" />
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Categories</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="p15 mt45">
+    <ion-grid class="ion-no-padding">
+      <ion-row *ngIf="categoryData.length>0">
+        <ion-col>
+          <ul class="catlist">
+            <li *ngFor= "let data of categoryData">
+              <div class="catbox" (click)="goTo(data)">
+                <div class="ionbox"><img src="{{data.photo}}" alt="" /></div>
+                <h3>{{data.name}}</h3>
+              </div>
+            </li>
+          </ul>
+        </ion-col>
+      </ion-row>
+      <!-- *ngIf="categoryData.length==0" -->
+      <ion-row *ngIf="categoryData.length==0">
+        <ion-col>
+          <ul class="catlist">
+            <li>
+              <div class="catbox">
+                <div class="ionbox"><ion-skeleton-text animated style="height: 28px; width: 48%;"></ion-skeleton-text></div>
+               <ion-skeleton-text animated style="width: 38%;"></ion-skeleton-text>
+              </div>
+            </li>
+            <li>
+              <div class="catbox">
+                <div class="ionbox"><ion-skeleton-text animated style="height: 28px; width: 48%;"></ion-skeleton-text></div>
+               <ion-skeleton-text animated style="width: 38%;"></ion-skeleton-text>
+              </div>
+            </li>
+            <li>
+              <div class="catbox">
+                <div class="ionbox"><ion-skeleton-text animated style="height: 28px; width: 48%;"></ion-skeleton-text></div>
+               <ion-skeleton-text animated style="width: 38%;"></ion-skeleton-text>
+              </div>
+            </li>
+            <li>
+              <div class="catbox">
+                <div class="ionbox"><ion-skeleton-text animated style="height: 28px; width: 48%;"></ion-skeleton-text></div>
+               <ion-skeleton-text animated style="width: 38%;"></ion-skeleton-text>
+              </div>
+            </li>
+            <li>
+              <div class="catbox">
+                <div class="ionbox"><ion-skeleton-text animated style="height: 28px; width: 48%;"></ion-skeleton-text></div>
+               <ion-skeleton-text animated style="width: 38%;"></ion-skeleton-text>
+              </div>
+            </li>
+            <li>
+              <div class="catbox">
+                <div class="ionbox"><ion-skeleton-text animated style="height: 28px; width: 48%;"></ion-skeleton-text></div>
+               <ion-skeleton-text animated style="width: 38%;"></ion-skeleton-text>
+              </div>
+            </li>
+       
+
+
+          </ul>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar class="productHeader">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <img src="assets/images/chevron.svg" />
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Order Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <div class="fleximg" *ngIf="orderData">
+    <div>
+      <h3>Order NO {{orderData?.order_number}}</h3>
+      <p>{{orderData?.created_at | date : 'dd-MM-YYYY'}}</p>
+    </div>
+    <div class="btnbox">
+      <ion-button shape="round" class="round1" color="{{color}}" expand="small">{{orderData?.status}}</ion-button>
+    </div>
+  </div>
+  <div class="resto_detail1" *ngFor="let pro  of productArray">
+    <div class="back_image" [ngStyle]="{'background-image':'url('+ imageUrl+pro?.item?.photo + ')'}"></div>
+      <div class="w100">
+        <h2>{{pro?.item?.name}}</h2>
+        <h3>CN¥ {{pro?.item?.whole_sell_discount[0]}} / piece <small>{{pro?.qty}} Pieces </small></h3>
+       <h2> CN¥ {{pro?.price }}</h2>
+        <div class="startrat">
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <span>(16)</span>
+        </div>
+      </div>
+  </div>
+  <div class="p15 mt45" *ngIf="orderData">
+    <div class="resto_detail">
+       <h4>Order Information</h4>
+       <ul>
+         <li *ngIf="orderData?.shipping == 'shipto'">
+           <h3>Shipping Address:</h3>
+           <h4 *ngIf="orderData?.customer_address!=null && orderData?.shipping_address==null">{{orderData?.customer_address}},
+            {{orderData?.customer_city}},
+            {{orderData?.customer_country}}
+            - {{orderData?.customer_zip}}</h4>
+            <h4 *ngIf="orderData?.customer_address!=null && orderData?.shipping_address!=null">{{orderData?.shipping_address}},
+              {{orderData?.shipping_city}},
+              {{orderData?.shipping_country}}
+              - {{orderData?.shipping_zip}}</h4>
+        </li>
+
+        <li>
+          <h3>Payment method:</h3>
+          <!-- <h4><img src="assets/images/mastercard.png" style="margin-right: 6px;" alt="" /> **** **** **** 3947</h4> -->
+          <h4>{{orderData?.method}}</h4>
+        </li>
+        <li>
+          <h3>Payment status:</h3>
+          <h4 *ngIf="orderData?.payment_status =='Pending'"> Unpaid</h4>
+          <h4 *ngIf="orderData?.payment_status !='Pending'"> Paid</h4>
+
+        </li>
+        
+        <li *ngIf="orderData?.order_note != null">
+          <h3>Order Note:</h3>
+          <h4> {{orderData?.order_note}}</h4>
+        </li>
+        <li *ngIf="orderData?.coupon_discount != null && orderData?.coupon_discount != '0'">
+          <h3>Discount:</h3>
+          <h4> CN¥ {{orderData?.coupon_discount}}</h4>
+        </li>
+
+        <li>
+          <h3>Total Amount:</h3>
+          <h4> <strong> CN¥ {{orderData?.pay_amount}}</strong> </h4>
+        </li>
+
+       </ul>
+    </div>
+  </div>
+</ion-content>

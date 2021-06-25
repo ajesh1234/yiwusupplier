@@ -1,0 +1,178 @@
+<ion-header>
+  <ion-toolbar class="productHeader">
+    <!-- <ion-menu-button slot="start"> -->
+      <!-- <img src="assets/images/menu.svg" class="backbtn1" /> -->
+    <!-- </ion-menu-button> -->
+	  <ion-menu-button slot="start">
+      <img src="assets/images/menu.svg" class="backbtn1" />
+    </ion-menu-button>
+    <ion-title>Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="p15 mt45">
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        <ion-col>
+          <ion-chip class="completed">
+            <ion-avatar>
+              <img src="assets/images/completed.svg" alt="" />
+            </ion-avatar>
+            <div>
+              <ion-label>{{data?.completed}}</ion-label>
+              <p>Completed</p>
+            </div>
+          </ion-chip>
+        </ion-col>
+
+        <ion-col>
+          <ion-chip class="pending">
+            <ion-avatar>
+              <img src="assets/images/pending.svg" alt="" />
+            </ion-avatar>
+            <div>
+              <ion-label>{{data?.pending}}</ion-label>
+              <p>Pending</p>
+            </div>
+          </ion-chip>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-chip class="canceled">
+            <ion-avatar>
+              <img src="assets/images/canceled.svg" alt="" />
+            </ion-avatar>
+            <div>
+              <ion-label>{{data?.cancelled}}</ion-label>
+              <p>Canceled</p>
+            </div>
+          </ion-chip>
+        </ion-col>
+
+        <ion-col>
+          <ion-chip class="ongoing">
+            <ion-avatar>
+              <img src="assets/images/ongoing.svg" alt="" />
+            </ion-avatar>
+            <div>
+              <ion-label>{{data?.processing}}</ion-label>
+              <p>Ongoing</p>
+            </div>
+          </ion-chip>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-chip class="products">
+            <ion-avatar>
+              <img src="assets/images/products.svg" alt="" />
+            </ion-avatar>
+            <div>
+              <ion-label>{{data?.products}}</ion-label>
+              <p>Total Products</p>
+            </div>
+          </ion-chip>
+        </ion-col>
+
+        <ion-col>
+          <ion-chip class="earning">
+            <ion-avatar>
+              <img src="assets/images/earning.svg" alt="" />
+            </ion-avatar>
+            <div>
+              <ion-label>{{data?.earning}}</ion-label>
+              <p>Total Earnings</p>
+            </div>
+          </ion-chip>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col  *ngIf="notificationData.length > 0 && !noData">
+          <h2>Notifications <a routerLink="/notifications">View All</a></h2>
+          <ion-item-sliding *ngFor="let data of notificationData; let i = index;">
+            <ion-item lines="none" (click)="goTo(data)" detail='false' [ngClass]="{'active': data?.is_read == 0}" class="ion-no-padding" routerLink="#">
+              <ion-label>
+                <p>You have received a new notification.</p>
+              </ion-label>
+              <ion-note slot="end">
+                {{data?.created_at | timeAgo}}
+              </ion-note>
+            </ion-item>
+            <ion-item-options class="ion-no-padding" side="end">
+              <ion-item-option class="ion-no-padding" color="danger">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>      
+        </ion-col>
+        <ion-col *ngIf="notificationData.length == 0 && !noData">
+          <h2>Notifications </h2>
+          <div  >         
+           <ion-item-sliding>
+              <ion-item lines="none" detail='false' class="ion-no-padding" routerLink="#">
+                <ion-label>
+                  <ion-skeleton-text animated style="height:60px; width: 210px;"></ion-skeleton-text>             
+                </ion-label>
+                <ion-note slot="end">
+                  <ion-skeleton-text animated style="width: 78px;"></ion-skeleton-text>
+                </ion-note>
+              </ion-item>
+  
+            </ion-item-sliding>
+            <ion-item-sliding>
+              <ion-item lines="none" detail='false' class="ion-no-padding" routerLink="#">
+                <ion-label>
+                  <ion-skeleton-text animated style="height:60px; width: 210px;"></ion-skeleton-text>             
+                </ion-label>
+                <ion-note slot="end">
+                  <ion-skeleton-text animated style="width: 78px;"></ion-skeleton-text>
+                </ion-note>
+              </ion-item>
+            </ion-item-sliding>
+            <ion-item-sliding>
+              <ion-item lines="none" detail='false' class="ion-no-padding" routerLink="#">
+                <ion-label>
+                  <ion-skeleton-text animated style="height:60px; width: 210px;"></ion-skeleton-text>             
+                </ion-label>
+                <ion-note slot="end">
+                  <ion-skeleton-text animated style="width: 78px;"></ion-skeleton-text>
+                </ion-note>
+              </ion-item>
+  
+            </ion-item-sliding>  
+               <ion-item-sliding>
+              <ion-item lines="none" detail='false' class="ion-no-padding" routerLink="#">
+                <ion-label>
+                  <ion-skeleton-text animated style="height:60px; width: 210px;"></ion-skeleton-text>             
+                </ion-label>
+                <ion-note slot="end">
+                  <ion-skeleton-text animated style="width: 78px;"></ion-skeleton-text>
+                </ion-note>
+              </ion-item>
+  
+            
+            </ion-item-sliding>   
+            <ion-item-sliding>
+              <ion-item lines="none" detail='false' class="ion-no-padding" routerLink="#">
+                <ion-label>
+                  <ion-skeleton-text animated style="height:60px; width: 210px;"></ion-skeleton-text>             
+                </ion-label>
+                <ion-note slot="end">
+                  <ion-skeleton-text animated style="width: 78px;"></ion-skeleton-text>
+                </ion-note>
+              </ion-item>
+            </ion-item-sliding>
+          </div>          
+        </ion-col>
+        <div *ngIf="notificationData.length == 0 && noData"  class="no-data">      
+          <p>No Notification Found!</p>
+        </div>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

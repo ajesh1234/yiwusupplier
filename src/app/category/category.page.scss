@@ -1,0 +1,39 @@
+ion-title{
+  font-size: 18px;
+}
+
+.mt45
+{
+  margin-top: 15px;
+}
+
+.catlist{
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  .catbox{
+    background-color: #F7F7F7;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    border: 2px solid #EAEAEA;
+    align-items: center;
+    margin-bottom: 15px;
+    .ionbox
+    {
+      background-color: var(--ion-color-secondary);
+      padding: 18px 25px;
+      border-radius: 10px;
+      margin-right: 10px;
+      img{
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+      }
+    }
+    h3{
+      margin: 0;
+      font-size: 14px;
+    }
+  }
+}

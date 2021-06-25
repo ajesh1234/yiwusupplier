@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="text-left pad15">
+      <div >Select category</div> 
+    </ion-title>
+    <ion-buttons slot="end" (click)="dismiss()"><ion-icon name="close-outline"></ion-icon></ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<div>
+  <ion-list class="ion-no-padding">
+    <div menucat *ngFor="let data of categoryData; let i = index">
+     <ion-item lines="none" >
+      <ion-checkbox slot="end" (ionChange)="checkEvent(data, data.isChecked, 'main_cat##')" [(ngModel)]="data.isChecked" [ngModelOptions]="{standalone: true}"></ion-checkbox>    
+      {{data.name}}
+         </ion-item>
+         <ion-icon slot="end" class="rarrow-w" (click)="toggleLevel1('idx'+i)"  [name]="isLevel1Shown('idx'+i)? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon> 
+         <!-- <ion-menu-toggle auto-hide="false" *ngIf="isLevel1Shown('idx'+i)"> -->
+        <ion-list lines="none"  *ngIf="isLevel1Shown('idx'+i)">
+          <div style="padding-right: 80px; padding-left: 35px;" *ngFor="let subData of data.sub_and_child_cat let i2 = index">
+          <!-- <ion-item menuclose class="sub-menu"   [ngClass]="getClass(subData.id)" (click)="goTo(data,subData)"  *ngIf="subData.childs.length == 0"> -->
+            <ion-item  text-wrap  class="sub-menu"  [ngClass]="{active: isLevel2Shown('idx'+i+'idx'+i2)}" >
+             <ion-checkbox slot="end" [ngModelOptions]="{standalone: true}" (ionChange)="checkEvent(subData, subData.isChecked, 'sub_cat##')" [(ngModel)]="subData.isChecked"></ion-checkbox>    
+             {{subData.name}} 
+           </ion-item>
+           <ion-icon slot="end" class="rarrow-w" *ngIf="subData?.childs.length>0" (click)="toggleLevel2('idx'+i+'idx'+i2, data,subData)"  [name]="isLevel2Shown('idx'+i+'idx'+i2) ? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon> 
+
+          <ion-list *ngIf="isLevel2Shown('idx'+i+'idx'+i2)">
+            <ion-item *ngFor="let childdata of subData.childs" text-wrap  class="sub-menu" menuclose  >
+               <ion-checkbox slot="end" [ngModelOptions]="{standalone: true}" (ionChange)="checkEvent(childdata, childdata.isChecked, 'child_cat##')" [(ngModel)]="childdata.isChecked"></ion-checkbox>    
+               {{childdata.name}}
+            </ion-item>
+          </ion-list>
+        </div>
+        </ion-list>
+      <!-- </ion-menu-toggle> -->
+      </div>
+    </ion-list>
+</div>
+</ion-content>

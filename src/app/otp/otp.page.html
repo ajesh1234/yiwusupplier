@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar class="productHeader">
+    <ion-buttons slot="start">
+      <ion-button routerLink="/login">
+        <img src="assets/images/leftarrow.png" class="backbtn" />
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="p15 mt45">
+    <div class="ion-text-center">
+      <img src="assets/images/otp.png" alt="" />
+    </div>
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <h1>Enter OTP</h1>
+          <p>OTP has been sent to your email , please enter the same here to login.</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <form [formGroup]="verificationForm">
+            <ion-list lines="none">
+              <ion-item lines="none" class="ion-no-padding">
+                <div class="ioncuinput">
+                  <div class="passcode-wrapper">
+                    <ion-input maxlength="1"  class="phone-input" formControlName="input1" [ngClass]="{'new-invalid':verificationForm.get('input1').hasError('required') && verificationForm.get('input1').touched}"   #input1  (input)="otpEnter($event.target, '1')" type="number"></ion-input>
+                    <ion-input maxlength="1"  type="number"  class="phone-input" formControlName="input2" [ngClass]="{'new-invalid':verificationForm.get('input2').hasError('required') && verificationForm.get('input2').touched}" #input2  (input)="otpEnter($event.target, '2')"></ion-input>
+                    <ion-input maxlength="1"  type="number"  class="phone-input" formControlName="input3" [ngClass]="{'new-invalid':verificationForm.get('input3').hasError('required') && verificationForm.get('input3').touched}" #input3 (input)="otpEnter($event.target, '3')"></ion-input>
+                    <ion-input maxlength="1"  type="number"  class="phone-input" formControlName="input4" [ngClass]="{'new-invalid':verificationForm.get('input4').hasError('required') && verificationForm.get('input4').touched}" #input4 (input)="otpEnter($event.target, '4')"></ion-input>
+                  
+                   </div>
+                </div>
+              </ion-item>
+            </ion-list>
+
+
+            <ion-button shape="round" class="round" (click)="otpVerification()" color="secondary" type="submit" expand="full">VERIFY</ion-button>
+          </form>
+          <p class= "resendotp" (click)="resend_otp()">  If you didn't receive a code <span >RESEND OTP?</span></p>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

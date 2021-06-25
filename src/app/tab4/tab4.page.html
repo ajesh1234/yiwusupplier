@@ -1,0 +1,125 @@
+<ion-header>
+  <ion-toolbar class="productHeader">
+    <ion-menu-button slot="start">
+      <img src="assets/images/menu.svg" class="backbtn1" />
+    </ion-menu-button>
+    <ion-title>Chat</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="main_content_div" *ngIf="chatList.length>0">
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        <ion-col>
+          <ion-item-sliding *ngFor="let chatlist of chatList; let i =index">
+            <ion-item (click)="goToChat(chatlist)" lines="none" detail='false' class="ion-no-padding">
+              <ion-label>
+                <div class="fleximg">
+                  <!-- <span class="online"></span> -->
+                  <img src="{{chatlist?.userpic}}" alt="" />
+                  <div>
+                    <h3><strong>{{chatlist?.username}}</strong></h3>
+                    <p> {{chatlist?.message}}</p>
+                  </div>
+                </div>
+              </ion-label>
+              <ion-note slot="end">
+                <!-- <span>1</span> -->
+                <div>{{chatlist?.created_at | timeAgo}}</div>
+              </ion-note>
+            </ion-item>
+
+            <ion-item-options side="end" (click)="deleteConfirmation(chatlist?.id,i)">
+              <ion-item-option color="danger">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+
+          <!-- <ion-item-sliding>
+            <ion-item routerLink="/chatbox" lines="none" detail='false' class="ion-no-padding">
+              <ion-label>
+                <div class="fleximg">
+                  <span class="online"></span>
+                  <img src="assets/images/chatimg1.png" alt="" />
+                  <div>
+                    <h3><strong>Solina Dube</strong></h3>
+                    <p>What do you think about the...</p>
+                  </div>
+                </div>
+              </ion-label>
+              <ion-note slot="end">
+                <span>2</span>
+                <div>5:30 pm</div>
+              </ion-note>
+            </ion-item>
+
+            <ion-item-options side="end">
+              <ion-item-option color="danger">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+
+          <ion-item-sliding>
+            <ion-item routerLink="/chatbox" lines="none" detail='false' class="ion-no-padding">
+              <ion-label>
+                <div class="fleximg">
+                  <span class="online"></span>
+                  <img src="assets/images/chatimg.png" alt="" />
+                  <div>
+                    <h3><strong>Kathie</strong></h3>
+                    <p>What do you think about the...</p>
+                  </div>
+                </div>
+              </ion-label>
+              <ion-note slot="end">
+                <span>1</span>
+                <div>5:30 pm</div>
+              </ion-note>
+            </ion-item>
+
+            <ion-item-options side="end">
+              <ion-item-option color="danger">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+
+          <ion-item-sliding>
+            <ion-item routerLink="/chatbox" lines="none" detail='false' class="ion-no-padding">
+              <ion-label>
+                <div class="fleximg">
+                  <span class="online"></span>
+                  <img src="assets/images/chatimg1.png" alt="" />
+                  <div>
+                    <h3><strong>Solina Dube</strong></h3>
+                    <p>What do you think about the...</p>
+                  </div>
+                </div>
+              </ion-label>
+              <ion-note slot="end">
+                <span>2</span>
+                <div>5:30 pm</div>
+              </ion-note>
+            </ion-item>
+
+            <ion-item-options side="end">
+              <ion-item-option color="danger">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding> -->
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="pagination($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  </div>
+  <div class="no-data" *ngIf="chatList.length==0 && noData">
+    <p>No Chat Found</p>
+  </div>
+</ion-content>

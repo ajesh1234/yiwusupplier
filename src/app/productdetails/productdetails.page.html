@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar class="productHeader">
+    <ion-buttons slot="start">
+      <ion-button routerLink="/tabs/tab3">
+        <img src="assets/images/leftarrow1.png" class="" />
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Product Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <div class="p15 mt45">
+    <div class="productmain">
+      <div class="productmain__imgbox">
+        <img src="{{selectedImg}}" *ngIf="selectedImg!=''" (click)="openImage(selectedImg)" />
+        <ion-skeleton-text *ngIf="selectedImg==''"  animated style="height: 250px; width: 100%;"></ion-skeleton-text>
+
+      </div>
+
+      <div class="productmain__box">
+        <ul>
+          <ion-slides pager="true" [options]="slideOpts" #mySlider  *ngIf="proData?.product_galleries.length">
+            <ion-slide  [ngClass]="getActive(pro)" *ngFor="let pro of proData.product_galleries ;let i=index" (click)="selected(pro.photo, pro )">
+           <li  >
+            <img src="{{proData.imgurl}}/{{pro.photo}}" class="" />
+           </li>
+            </ion-slide>
+            </ion-slides>
+          <!-- <li class="active">
+            <img src="assets/images/proimg.png" class="" />
+          </li>
+          <li>
+            <img src="assets/images/pro1.png" class="" />
+          </li>
+          <li>
+            <img src="assets/images/proimg.png" class="" />
+          </li>
+          <li>
+            <img src="assets/images/pro1.png" class="" />
+          </li>
+          <li>
+            <img src="assets/images/proimg.png" class="" />
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="profileHead" *ngIf="proData">
+    <h1>{{proData?.product?.name}}</h1>
+    <div class="reviewdetails">
+      <img src="assets/images/instock.svg" class="" />
+      <strong>In stock</strong>
+      <div class="startrat">
+        <ion-rating class="reviews-btn" [rate]="proData?.product?.avgrating" readonly="true" size="small"></ion-rating> 
+
+        <!-- <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star-outline"></ion-icon> -->
+        <span>({{proData?.product?.ratings?.length}} Reviews)</span>
+      </div>
+    </div>
+    <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
+    <h3><span>Price:</span> CN¥ {{proData?.product?.whole_sell_discount[0]}}/ piece <small>( {{proData?.product?.minimum_quantity}} {{proData?.product?.measure}} MOQ)</small></h3>
+  </div>
+</ion-content>

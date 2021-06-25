@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar class="productHeader">
+    <ion-menu-button slot="start">
+      <img src="assets/images/menu.svg" class="backbtn1" />
+    </ion-menu-button>
+    <!-- <ion-title>Settings</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <div class="profileHead" [ngStyle]="{'background-image':'url(assets/images/profileimg.png)'}">
+	<div class="imgbox"> <img src="{{userData?.image}}" alt="" /> </div>
+    <h2>{{userData?.name}}</h2>
+	<ion-row>
+	 <ion-col size="4">
+	 <div stats>
+	 <h2>{{data?.orders}}</h2>
+	 <h3>My Orders</h3>
+	 </div>
+	 </ion-col>
+	 <ion-col size="4">
+	 <div stats>
+	  <h2>{{data?.products}}</h2>
+	 <h3>My Products</h3>
+	 </div>
+	  </ion-col>
+	 <ion-col size="4">
+	 <div stats>
+	  <h2>{{data?.notification}}</h2>
+	 <h3>Notifications</h3>
+	 </div>
+	  </ion-col>
+	</ion-row>
+  </div>
+  <ion-list class="p15 mt45">
+
+            <ion-item lines="none" class="ion-no-padding" routerLink="/tabs/tab1">
+              <img class="colwhite" slot="start" src="assets/images/homeicon.svg" />
+              <ion-label>Home</ion-label>
+			  <ion-buttons slot="end">
+			   <ion-icon name="chevron-forward-outline"></ion-icon>
+			  </ion-buttons>
+            </ion-item>
+         <ion-item lines="none" class="ion-no-padding" routerLink="/tabs/tab5">
+              <img class="colwhite" slot="start" src="assets/images/myacc.svg" />
+              <ion-label>Profile</ion-label>
+			  <ion-buttons slot="end">
+			   <ion-icon name="chevron-forward-outline"></ion-icon>
+			  </ion-buttons>
+            </ion-item>
+            <ion-item lines="none" class="ion-no-padding" routerLink="/category">
+              <img class="colwhite" slot="start" src="assets/images/myorder.svg" />
+              <ion-label>Categories</ion-label>
+			  <ion-buttons slot="end">
+			   <ion-icon name="chevron-forward-outline"></ion-icon>
+			  </ion-buttons>
+            </ion-item>
+
+            <ion-item lines="none" class="ion-no-padding" routerLink="/notifications">
+              <img class="colwhite" slot="start" src="assets/images/quotation.svg" />
+              <ion-label>Notifications</ion-label>
+			  <ion-buttons slot="end">
+			   <ion-icon name="chevron-forward-outline"></ion-icon>
+			  </ion-buttons>
+            </ion-item>
+
+
+
+            <ion-item lines="none" class="ion-no-padding" (click)="logoutConfirmation()">
+              <img class="colwhite" slot="start" src="assets/images/logout.svg" />
+              <ion-label>Logout</ion-label>
+			  <ion-buttons slot="end">
+			   <ion-icon name="chevron-forward-outline"></ion-icon>
+			  </ion-buttons>
+            </ion-item>
+  </ion-list>
+
+</ion-content>

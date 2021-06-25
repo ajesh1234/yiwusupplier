@@ -1,0 +1,327 @@
+<ion-header>
+  <ion-toolbar class="productHeader">
+    <ion-buttons slot="start">
+      <ion-button routerLink="/tabs/tab3">
+        <img src="assets/images/chevron.svg" />
+      </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="data == ''">Add Product</ion-title>
+    <ion-title *ngIf="data != ''">Edit Product</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="p15 mt45">
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        <ion-col>
+          <form [formGroup]="productForm"> 
+            <h1>Basic Information</h1>
+            <ion-list lines="none">
+              <div class="labeltxt">Product Name</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-input type="text"  clearOnEdit="false"  placeholder="Enter product name" formControlName="name"  style="font-size: 15px !important;" value="Cropped Pointelle Sweater" name="text" autocapitalize="off" >
+                </ion-input>
+              </ion-item>
+            </ion-list>
+            <div class="error-message" *ngIf="isControlHasError('name','required')">
+              <p class="fs-11 mgt-5 txt-light">Please enter product name.</p>
+            </div>
+            <ion-list lines="none">
+              <div class="labeltxt">Product Photo</div>
+              <ion-item lines="none" class="ion-no-padding" (click)="selectImage()">
+               <img src ="{{pro_picture}}" *ngIf="pro_picture != '' && pro_picture != null">
+               <img src ="{{img}}{{pro_picture_edit}}" *ngIf="(pro_picture == '' || pro_picture == null) && pro_picture_edit!=''">
+               <p *ngIf="pro_picture == '' || pro_picture == null">Select photo</p>
+              </ion-item>
+            </ion-list>
+            <ion-list *ngIf="data.galleries && data.galleries != null && data.galleries.length>0">
+              <div *ngFor="let gallery of data.galleries ;let i = index">
+                <span>{{gallery?.photo}}
+                  <ion-icon name= "close" (click)="removeGallery(gallery, i)"></ion-icon>
+                  <!-- <span (click)="delete(i)"></span> -->
+                </span>
+              </div>
+            </ion-list>
+            <ion-list>
+              <ion-item lines="none"  *ngFor ="let images of imageArray; let i = index"> 
+                <div class="images" >
+                <p>{{images.name}}</p>
+                <span (click)="delete(i)">Delete</span>
+                </div>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none">
+              <div class="labeltxt">Image Gallery</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <div class="newfileupload">
+                  <label for="fupload" class="fileupld">Enter</label>
+                  <input type="file" id="fupload" class="file-upload" (change)="upload($event.target)">
+              </div>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none">
+              <div class="labeltxt">Product SKU</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-input type="text" style="font-size: 15px !important;" clearOnEdit="false"  placeholder="Enter product sku" formControlName="sku" name="text" autocapitalize="off" >
+                </ion-input>
+              </ion-item>
+            </ion-list>
+            <div class="error-message" *ngIf="isControlHasError('sku','required')">
+              <p class="fs-11 mgt-5 txt-light">Please enter product sku.</p>
+            </div>
+            <ion-list lines="none" class="selectimg">
+              <div class="labeltxt">Category</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-select value="category" okText="Okay" cancelText="Dismiss" formControlName="category_id" (ionChange)="selectCat()">
+                  <ion-select-option *ngFor="let data of categoryData" [value]="data?.id" >{{data?.name}}</ion-select-option>
+                 </ion-select>
+              </ion-item>
+            </ion-list>
+            <div class="error-message" *ngIf="isControlHasError('category_id','required')">
+              <p class="fs-11 mgt-5 txt-light">Please select category.</p>
+            </div>
+
+            <ion-list lines="none" class="selectimg">
+              <div class="labeltxt">Sub Category</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-select value="category" okText="Okay" cancelText="Dismiss" formControlName="subcategory_id" (ionChange)="selectSubCat()">
+                  <ion-select-option  *ngFor="let sub of subCategoryData" [value]="sub?.id">{{sub?.name}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none" class="selectimg">
+              <div class="labeltxt">Child Category</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-select value="category" okText="Okay" cancelText="Dismiss" formControlName="child_id">
+                  <ion-select-option  *ngFor="let childData of childCategoryData" [value]="childData?.id">{{childData?.name}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none" class="termCondition">
+              <ion-item (click)="toggle()" lines="none" class="ion-no-padding">
+                <ion-label>Allow Product SEO</ion-label>
+                <ion-checkbox slot="start" (ionChange)="checkSeo($event)" [(ngModel)]="seoCheckModel"  [ngModelOptions]="{standalone: true}" name="seoCheckModel"></ion-checkbox>
+              </ion-item>
+            </ion-list>
+
+
+            <!-- After checkbox Click  -->
+            <div *ngIf="isDisplay">
+              <ion-list lines="none">
+                <div class="labeltxt">Meta Tags</div>
+              <span *ngFor="let tags of tagArray; let i = index">
+                {{tags}}
+                <ion-icon name="close" (click)="removeTag(i)"></ion-icon>
+              </span>
+                <ion-item lines="none" class="ion-no-padding">
+                  <ion-input type="text" style="font-size: 15px !important;" placeholder="" name="text" formControlName="meta" autocapitalize="off" >
+                  </ion-input>
+                </ion-item>
+                <div (click)="addTag()" class="add-tag">Add</div>
+              </ion-list>
+
+              <ion-list lines="none">
+                <div class="labeltxt">Message</div>
+                <ion-item lines="none" class="ion-no-padding">
+                  <ion-textarea placeholder="Leave Your Message" formControlName="meta_description"></ion-textarea>
+                </ion-item>
+              </ion-list>
+            </div>
+
+
+            <ion-list lines="none">
+              <div class="labeltxt">Video URL (Optional)</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-input type="text" formControlName="youtube" style="font-size: 15px !important;" (ionChange)="checkLink()" placeholder="Video Url" name="text" autocapitalize="off" >
+                </ion-input>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none">
+              <h1>Price and Quantity</h1>
+            </ion-list>
+
+            <ion-list lines="none" class="selectimg">
+              <div class="labeltxt">Unit of Measurement</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <div class="w100">
+                  <ion-select class="w100" formControlName="unit_measurement" okText="Okay" cancelText="Dismiss">
+                    <ion-select-option *ngFor="let unit of unitArray" value="{{unit}}">{{unit}}</ion-select-option>
+                     </ion-select>
+                  <ion-input *ngIf="productForm.value.unit_measurement == 'Custom Unit' " formControlName="unit_val"  class="w100" type="text" style="font-size: 15px !important;margin-top: 8px;" placeholder="Unit" name="text" autocapitalize="off" >
+                  </ion-input>
+                </div>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none" class="selectimg">
+              <div class="labeltxt">Quantity Price (CNY)</div>
+              <div  class="show-details" *ngIf="whole_sell_qty.length>0">               
+                <div *ngFor="let q of priceArray; let i = index">
+                  <ion-icon name="close" (click)="remove(i)"></ion-icon>
+                  <p>MOQ (Unit): {{q.qty}}</p>
+                  <p>Price (Unit): {{q.price}}</p>
+                </div>
+              
+              </div>
+              <ion-item lines="none" class="ion-no-padding">
+                <div class="w100">
+                  <ion-input type="number" style="font-size: 15px !important;"  formControlName="moq_val" placeholder="MOQ (Unit) (eg.10)" name="text" autocapitalize="off" >
+                  </ion-input>
+                  <div class="flexin">
+                    <div class="inpudiv">
+                      <ion-input  type="number" style="font-size: 15px !important;margin-top: 8px;" formControlName="price_val" placeholder="Price (Unit) (eg.￥2.00)" name="text" autocapitalize="off" >
+                      </ion-input>
+                    </div>
+                    <div>
+                      <img src="assets/images/plusadd.png" alt=""  (click)="add()"/>
+                    </div>
+                  </div>
+
+                </div>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none">
+              <div class="labeltxt">Product Inventory</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-input type="number" style="font-size: 15px !important;" formControlName="pro_inventory" placeholder="e.g 20" name="text" autocapitalize="off" >
+                </ion-input>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none">
+              <div class="labeltxt">Minimum Order Quantity</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-input type="number" style="font-size: 15px !important;" formControlName = "minimum_quantity" placeholder="Digit only: 0" name="text" autocapitalize="off" >
+                </ion-input>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none">
+              <h1>Trade Information</h1>
+            </ion-list>
+
+            <ion-list lines="none">
+              <div class="labeltxt">Export Cotton Weight Kg</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-input type="text" style="font-size: 15px !important;" formControlName="weight" placeholder="Enter Weight in KG" name="text" autocapitalize="off" >
+                </ion-input>
+              </ion-item>
+            </ion-list>
+
+            <!-- <ion-list lines="none">
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-input type="text" style="font-size: 15px !important;" placeholder="Enter Weight in KG" name="text" autocapitalize="off" required>
+                </ion-input>
+              </ion-item>
+            </ion-list> -->
+
+            <ion-list lines="none">
+              <div class="labeltxt">Export Cotton Dimension L/W/H</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-input type="text" formControlName="length" style="font-size: 15px !important;" placeholder="Enter Length CM" name="text" autocapitalize="off" >
+                </ion-input>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none">
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-input type="text" formControlName="width" style="font-size: 15px !important;" placeholder="Enter Width CM" name="text" autocapitalize="off" >
+                </ion-input>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none">
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-input type="text" formControlName="height" style="font-size: 15px !important;" placeholder="Enter Height CM" name="text" autocapitalize="off" >
+                </ion-input>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none">
+              <div class="labeltxt">Cubic Meters (m³)</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-input type="text" formControlName="cubic_meter" style="font-size: 15px !important;" placeholder="Cubic Meters (m³)" name="text" autocapitalize="off" >
+                </ion-input>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none" class="termCondition">
+              <div class="labeltxt">Payment Terms</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-label>Cash on Delivery (COD)</ion-label>
+                <ion-checkbox slot="start" [(ngModel)]="cod"  [ngModelOptions]="{standalone: true}" (ionChange)="changeRadioStatus($event, 'Cash on Delivery (COD)')"></ion-checkbox>
+              </ion-item>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-label>Cash in Advance (CID)</ion-label>
+                <ion-checkbox slot="start"  [(ngModel)]="cid"  [ngModelOptions]="{standalone: true}" (ionChange)="changeRadioStatus($event, 'Cash in Advance (CID)')"></ion-checkbox>
+              </ion-item>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-label>Letter of Credit (L/C)</ion-label>
+                <ion-checkbox slot="start" [(ngModel)]="lic"  [ngModelOptions]="{standalone: true}" (ionChange)="changeRadioStatus($event, 'Letter of Credit (L/C)')"></ion-checkbox>
+              </ion-item>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-label>Telegraphic Transfer (T/T)</ion-label>
+                <ion-checkbox slot="start" [(ngModel)]="tt"  [ngModelOptions]="{standalone: true}" (ionChange)="changeRadioStatus($event, 'Telegraphic Transfer (T/T)')"></ion-checkbox>
+              </ion-item>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-label>Other</ion-label>
+                <ion-checkbox [(ngModel)]="other"  [ngModelOptions]="{standalone: true}" slot="start" (ionChange)="changeRadioStatus($event, 'Other')"></ion-checkbox>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none" sampleavailable>
+              <div class="labeltxt">Sample Available</div>
+              <ion-radio-group formControlName= "sample_check">            
+                <ion-item  lines="none"  class="ion-no-padding">
+                  <ion-label>Yes</ion-label>
+                  <ion-radio slot="start" value="yes"></ion-radio>
+                </ion-item>
+            
+                <ion-item  lines="none" class="ion-no-padding">
+                  <ion-label>No</ion-label>
+                  <ion-radio slot="start" value="no"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
+
+            <ion-list lines="none" class="selectimg">
+              <div class="labeltxt">Simple Policy</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-select formControlName="simple_policy" okText="Okay" cancelText="Dismiss">
+                  <ion-select-option *ngFor="let sampleData of sampleArray" value="{{sampleData}}">{{sampleData}}</ion-select-option>
+                  </ion-select>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none" class="termCondition">
+              <div class="labeltxt">Main Export Market(s)</div>
+              <ion-item lines="none" class="ion-no-padding" *ngFor="let export of export_market">
+                <ion-label>{{export.value}}</ion-label>
+                <ion-checkbox slot="start" [(ngModel)]="export.isChecked"  [ngModelOptions]="{standalone: true}" (ionChange)="changeExport($event, export.value)"></ion-checkbox>
+              </ion-item>
+            </ion-list>
+
+            <ion-list lines="none" class="ion-no-padding">
+              <div class="labeltxt">Package Details</div>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-textarea placeholder="Leave Your Message" formControlName="policy"></ion-textarea>
+              </ion-item>
+            </ion-list>
+            
+            <ion-button  *ngIf="data != ''" shape="round" class="round" style="margin-bottom: 10px;" color="secondary" type="submit" expand="full" (click)="editProduct()">Edit Product</ion-button>
+
+            <ion-button *ngIf="data == ''" shape="round" class="round" style="margin-bottom: 10px;" color="secondary" type="submit" expand="full" (click)="addProduct()">Add Product</ion-button>
+          </form>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

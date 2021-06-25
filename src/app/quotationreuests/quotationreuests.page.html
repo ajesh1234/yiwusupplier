@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar class="productHeader">
+    <ion-buttons slot="start">
+      <ion-button routerLink="/tabs/tab1">
+        <img src="assets/images/chevron.svg" />
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Quotation Requests</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="p15 mt45">
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        <ion-col>
+          <ion-item-sliding>
+            <ion-item routerLink="/quotationdetails" lines="none" detail='false' class="ion-no-padding">
+              <ion-label>
+                <div class="fleximg">
+                  <img src="assets/images/userimg.png" alt="" />
+                  <div>
+                    <h3><strong>Rob</strong> Semuiel</h3>
+                    <p>There are many variations of passages of Lorem Ipsum available...</p>
+                  </div>
+                </div>
+              </ion-label>
+              <ion-note slot="end">
+                Today
+              </ion-note>
+            </ion-item>
+
+            <ion-item-options side="end">
+              <ion-item-option color="danger">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+
+          <ion-item-sliding>
+            <ion-item routerLink="/quotationdetails" lines="none" detail='false' class="ion-no-padding">
+              <ion-label>
+                <div class="fleximg">
+                  <img src="assets/images/userimg.png" alt="" />
+                  <div>
+                    <h3><strong>John</strong> Smith</h3>
+                    <p>There are many variations of passages...</p>
+                  </div>
+                </div>
+              </ion-label>
+              <ion-note slot="end">
+                Yesterday
+              </ion-note>
+            </ion-item>
+
+            <ion-item-options side="end">
+              <ion-item-option color="danger">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+
+          <ion-item-sliding>
+            <ion-item routerLink="/quotationdetails" lines="none" detail='false' class="ion-no-padding">
+              <ion-label>
+                <div class="fleximg">
+                  <img src="assets/images/userimg.png" alt="" />
+                  <div>
+                    <h3><strong>Shelton</strong> Bishop</h3>
+                    <p>There are many variations of passages of Lorem Ipsum available...</p>
+                  </div>
+                </div>
+              </ion-label>
+              <ion-note slot="end">
+                Today
+              </ion-note>
+            </ion-item>
+
+            <ion-item-options side="end">
+              <ion-item-option color="danger">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

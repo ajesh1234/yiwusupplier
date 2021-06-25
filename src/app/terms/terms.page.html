@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="text-left pad15">
+      <div *ngIf="val == 'terms'"><img src="assets/images/ticketsicon.svg" /> Terms & conditions</div>
+      <div *ngIf="val == 'Privacy-and-Cookies-Policy'"><img src="assets/images/ticketsicon.svg" /> Privacy policy</div>
+
+    </ion-title>
+    <ion-buttons slot="end" (click)="dismiss()"><ion-icon name="close-outline"></ion-icon></ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="p8">
+  <ion-spinner  name="dots" style="left: 47%;" *ngIf="data == '' "></ion-spinner>
+ <div [innerHtml]="data">
+
+ </div>
+</ion-content>

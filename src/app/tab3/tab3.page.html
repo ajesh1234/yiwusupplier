@@ -1,0 +1,147 @@
+<ion-header>
+  <ion-toolbar class="productHeader">
+    <ion-menu-button slot="start">
+      <img src="assets/images/menu.svg" class="backbtn1" />
+    </ion-menu-button>
+    <ion-title *ngIf="getValue == '' && catData == '' && getChild == '' && searchText==''">All Products</ion-title>
+    <ion-title *ngIf="catData != ''">{{catData?.name}}</ion-title>
+    <ion-title *ngIf="searchText != '' && catData == ''">Search</ion-title>
+
+
+    <ion-buttons slot="end" class="probut">
+      <ion-button (click)="showSeach()">
+        <img src="assets/images/search.svg" alt="" />
+      </ion-button>
+      <ion-button>
+        <!-- <img src="assets/images/filter.svg" alt="" /> -->
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-row *ngIf="show">
+    <ion-col col-12 no-padding>
+      <ion-searchbar mode="ios" [(ngModel)]="searchText" (ionChange)="search()"></ion-searchbar>
+    </ion-col>
+  </ion-row>
+  <div class="p15 mt45"  *ngIf="productData.length">
+    <ion-row >
+      <ion-col size="6" *ngFor="let product of productData; let  i = index ">
+        <div class="productBox">
+          
+          <div class="productBox__imgbox" [ngStyle]="{'background-image':'url('+ imageUrl+product?.thumbnail + ')'}">
+            <div class="productBox__btnedit">
+              <img src="assets/images/edlt.png"  alt="" (click)="edit(product, i)"/>
+              <img src="assets/images/delete.png" alt=""  (click)="deleteConfirmation(product?.id, i)"/>
+            </div>
+            <div class="catrgoryb" routerLink="/category">
+             {{product?.category?.name}}
+            </div>
+          </div>
+          <h1 (click)="goTo(product)">{{product?.name}}</h1>
+            <h2 (click)="goTo(product)">{{product.minimum_quantity}} {{product.measure}} (MOQ)</h2>
+            <p>CN¥ {{product?.whole_sell_discount[0]}}</p>
+       </div>
+      </ion-col>
+  
+    </ion-row>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="pagination($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    </div>
+    <div class="p15 mt45"  *ngIf="!productData.length && !noData">
+    <!-- *ngIf="!productData.length && noData" -->
+    <ion-row >
+      <ion-col size="6">
+        <div class="productBox">
+          <div class="productBox__imgbox" >
+            <ion-skeleton-text animated style="height: 195px; width: 100%;"></ion-skeleton-text>  
+            <div class="productBox__btnedit">
+              <!-- <img src="assets/images/edlt.png" alt="" />
+              <img src="assets/images/delete.png" alt="" /> -->
+            </div>
+            <div class="catrgoryb">
+              <ion-skeleton-text animated style = "height :0px"></ion-skeleton-text>
+            </div>
+          </div>
+          <h1 ><ion-skeleton-text animated style = "width :167px"></ion-skeleton-text></h1>
+          <h2 ><ion-skeleton-text animated style = "width :155px"></ion-skeleton-text></h2>
+          <p><ion-skeleton-text animated style = "width :130px"></ion-skeleton-text></p>
+        </div>
+      </ion-col>
+
+      <ion-col size="6">
+        <div class="productBox">
+          <div class="productBox__imgbox" >
+            <ion-skeleton-text animated style="height: 195px; width: 100%;"></ion-skeleton-text>  
+            <div class="productBox__btnedit">
+              <!-- <img src="assets/images/edlt.png" alt="" />
+              <img src="assets/images/delete.png" alt="" /> -->
+            </div>
+            <div class="catrgoryb">
+              <ion-skeleton-text animated style = "height :0px"></ion-skeleton-text>
+            </div>
+          </div>
+          <h1 ><ion-skeleton-text animated style = "width :167px"></ion-skeleton-text></h1>
+          <h2 ><ion-skeleton-text animated style = "width :155px"></ion-skeleton-text></h2>
+          <p><ion-skeleton-text animated style = "width :130px"></ion-skeleton-text></p>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row >
+      <ion-col size="6">
+        <div class="productBox">
+          <div class="productBox__imgbox" >
+            <ion-skeleton-text animated style="height: 195px; width: 100%;"></ion-skeleton-text>  
+            <div class="productBox__btnedit">
+              <!-- <img src="assets/images/edlt.png" alt="" />
+              <img src="assets/images/delete.png" alt="" /> -->
+            </div>
+            <div class="catrgoryb">
+              <ion-skeleton-text animated style = "height :0px"></ion-skeleton-text>
+            </div>
+          </div>
+          <h1 ><ion-skeleton-text animated style = "width :167px"></ion-skeleton-text></h1>
+          <h2 ><ion-skeleton-text animated style = "width :155px"></ion-skeleton-text></h2>
+          <p><ion-skeleton-text animated style = "width :130px"></ion-skeleton-text></p>
+        </div>
+      </ion-col>
+
+      <ion-col size="6">
+        <div class="productBox">
+          <div class="productBox__imgbox" >
+            <ion-skeleton-text animated style="height: 195px; width: 100%;"></ion-skeleton-text>  
+            <div class="productBox__btnedit">
+              <!-- <img src="assets/images/edlt.png" alt="" />
+              <img src="assets/images/delete.png" alt="" /> -->
+            </div>
+            <div class="catrgoryb">
+              <ion-skeleton-text animated style = "height :0px"></ion-skeleton-text>
+            </div>
+          </div>
+          <h1 ><ion-skeleton-text animated style = "width :167px"></ion-skeleton-text></h1>
+          <h2 ><ion-skeleton-text animated style = "width :155px"></ion-skeleton-text></h2>
+          <p><ion-skeleton-text animated style = "width :130px"></ion-skeleton-text></p>
+        </div>
+      </ion-col>
+    </ion-row>
+
+  </div>
+
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/addproduct">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+<div *ngIf="!productData.length && noData" class="no-data">
+  <p>No Product Found!</p>
+</div>
+
+  
+
+</ion-content>
