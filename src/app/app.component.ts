@@ -3,6 +3,8 @@ import { StorageService } from '../app/services/storage.service';
 import { MenuController, NavController, Platform } from '@ionic/angular';
 import { ApiService } from '../app/services/api.service';
 import { ComponentService } from '../app/services/component.service';
+declare var Pusher: any;
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -27,6 +29,20 @@ export class AppComponent {
         this.navCtrl.navigateRoot(['/tabs/tab1']);
       }
     })
+    const pusher = new Pusher('917d2b88ea99c8e88584', {
+      cluster: 'ap2',
+      forceTLS: true
+    });
+    const channel = pusher.subscribe('chat');
+    console.log(channel, "chaneel");
+    var that = this;
+    channel.bind('chat-notification', function (data) {
+        console.log("entering", data);
+        console.log(JSON.parse(data.chat).profile)
+        if(JSON.parse(data.chat).profile == 0){         
+          that.componentService.eventpublish('chats:created', Date.now());
+        }      
+      });
   }
   getCategories(){
     var data = { }

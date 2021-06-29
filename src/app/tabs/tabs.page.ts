@@ -8,8 +8,13 @@ import { MenuController, NavController, ModalController, Platform } from '@ionic
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
-
-  constructor(public componentService:ComponentService, public navCtrl :NavController) {}
+  messageCount:any=0;
+  constructor(public componentService:ComponentService, public navCtrl :NavController) {
+    this.componentService.eventsubscribe('messageCount',(data)=>{
+      console.log(data)
+      this.messageCount = data; 
+    })
+  }
   goTo(data) {
     console.log(data, "ff");    
     this.componentService.eventpublish('product:created', {});  

@@ -20,9 +20,12 @@
     </ion-tab-button>
 
     <ion-tab-button tab="tab4">
+      <div carticon>
       <ion-icon src="assets/images/tabs/message.svg" class="beforeabselect"></ion-icon>
       <ion-icon src="assets/images/tabs/message1.svg" class="aftertabselect"></ion-icon>
       <ion-label>Messages</ion-label>
+      <span class="count" *ngIf="messageCount>0">{{messageCount}}</span>
+    </div> 
     </ion-tab-button>
 
     <ion-tab-button tab="settings">

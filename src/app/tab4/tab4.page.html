@@ -25,7 +25,8 @@
                 </div>
               </ion-label>
               <ion-note slot="end">
-                <!-- <span>1</span> -->
+                <span *ngIf="chatlist?.readcount!=0">{{chatlist?.readcount}}</span>
+
                 <div>{{chatlist?.created_at | timeAgo}}</div>
               </ion-note>
             </ion-item>

@@ -15,7 +15,9 @@ export class Tab4Page implements OnInit {
   noData: boolean;
 
   constructor(public alertController:AlertController,public storageService: StorageService, public navCtrl: NavController, public platform: Platform, public componentService: ComponentService, public modalController: ModalController, public api: ApiService, public menu: MenuController) {
-
+    this.componentService.eventsubscribe('chats:created', (data)=>{
+      this.nogetChatList();
+      })
   }
   ionViewDidEnter() {
     this.storageService.get('userData').then(res => {
@@ -70,6 +72,24 @@ export class Tab4Page implements OnInit {
       this.componentService.stopLoading();
     })
   }
+  nogetChatList() {
+    var data = {
+      token: this.userData.api_token
+    }
+    console.log(data, "data");
+    this.api.get('/chat_list', data).subscribe((res: any) => {
+      console.log(res);
+      if (res.status == '200') {
+        this.chatList = res.chat;
+        this.noData = false;
+        this.componentService.eventpublish('messageCount', res.total_readcount)
+        if (this.chatList.length == 0) {
+          this.noData = true;
+        }
+      }
+    })
+
+  }
   getChatList() {
     this.componentService.presentLoading();
     var data = {
@@ -81,6 +101,8 @@ export class Tab4Page implements OnInit {
       this.componentService.stopLoading();
       if (res.status == '200') {
         this.chatList = res.chat;
+        this.componentService.eventpublish('messageCount', res.total_readcount)
+
         this.noData = false;
         if (this.chatList.length == 0) {
           this.noData = true;

@@ -35,6 +35,8 @@ export class CategoryPage implements OnInit {
       console.log(res)
       if (res.status == '200') {
         this.categoryData = res.product_categories;
+        this.componentService.eventpublish('messageCount', res.total_readcount)
+
       }
     })
   }
