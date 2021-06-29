@@ -16,8 +16,9 @@ export class ForgotpasswordPage implements OnInit {
 
 
   constructor(public api: ApiService, public storageService: StorageService, public componentService: ComponentService, public modalController: ModalController, public menu: MenuController, public formBuilder: FormBuilder) {
-    this.loginForm = formBuilder.group({
-      email: ['', Validators.compose([Validators.required, Validators.email])]
+    this.loginForm = formBuilder.group({              
+        email: ['', Validators.compose([Validators.required,
+            Validators.pattern(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)])]
     });
     this.menu.enable(false);
   }

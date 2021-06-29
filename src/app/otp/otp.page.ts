@@ -130,5 +130,7 @@ export class OtpPage implements OnInit {
       console.log('login error:- ', err);
     });
   }
-
+dismiss(){
+  this.modalController.dismiss();
+}
 }

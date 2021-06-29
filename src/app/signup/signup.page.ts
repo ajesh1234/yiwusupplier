@@ -5,6 +5,8 @@ import { ApiService } from '../services/api.service';
 import { ComponentService } from '../services/component.service';
 import { TermsPage } from '../terms/terms.page';
 import { IonicSelectableComponent } from 'ionic-selectable';
+import { StorageService } from '../services/storage.service';
+
 import { ProductcategoryPage } from '../productcategory/productcategory.page';
 declare var $:any;
 @Component({
@@ -34,7 +36,7 @@ export class SignupPage implements OnInit {
   serviceArray:any=[];
   imageArray:any=[];
   typeArray:any=['Product Supplier','Service Supplier','Product and Service Supplier']
-  constructor(public navCtrl: NavController, public platform: Platform, public componentService: ComponentService, public modalController: ModalController, public api: ApiService, public formBuilder: FormBuilder, public menu: MenuController) {
+  constructor(public storageService:StorageService,public navCtrl: NavController, public platform: Platform, public componentService: ComponentService, public modalController: ModalController, public api: ApiService, public formBuilder: FormBuilder, public menu: MenuController) {
     this.signupForm = this.formBuilder.group({
       name: ["", Validators.compose([Validators.required])],
       email: ["", Validators.compose([
@@ -43,7 +45,7 @@ export class SignupPage implements OnInit {
         // Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z]+.[a-zA-Z0-9-.]+$"),
       ])],
       password: ["", Validators.compose([Validators.required, Validators.pattern("^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]{5,})$")])],
-      confirmpassword: ["", Validators.compose([Validators.minLength(6), Validators.required])],
+      confirmpassword: ["", Validators.compose([ Validators.required])],
       // address: ["", Validators.compose([Validators.required])],
       country: ["", Validators.compose([Validators.required])],
       registration_no: ["", Validators.compose([Validators.required])],
@@ -111,7 +113,7 @@ export class SignupPage implements OnInit {
       let password = group.controls[passwordKey];
       let confirmPassword = group.controls[confirmPasswordKey];
 
-      if (password.value !== confirmPassword.value && confirmPassword.value!='') {
+      if (password.value !== confirmPassword.value && confirmPassword.value !='') {
         return {
           mismatchedPasswords: true
         };
@@ -143,7 +145,7 @@ export class SignupPage implements OnInit {
     }else{
       type = 'both';
       if(this.categoryArray.length == 0 || this.serviceArray.length == 0 ){
-        this.componentService.presentToast('Please select product pr service categories', 'danger');
+        this.componentService.presentToast('Please select product and service categories', 'danger');
         return false;
       }
     }  
@@ -187,10 +189,15 @@ export class SignupPage implements OnInit {
         console.log(res)
          that.componentService.stopLoading();
         if (res['status'] == '200') {
-          that.isSubmit = false; 
-          that.componentService.presentToast(res['message'],'success');
-          that.imageArray ='';
-          that.signupForm.reset();
+      
+          that.storageService.set('userData', res.user_info).then(resp => {        
+            that.isSubmit = false; 
+            that.componentService.presentToast(res['message'],'success');
+            that.imageArray ='';
+            that.signupForm.reset();
+            that.menu.enable(true);
+            that.navCtrl.navigateRoot(['/tabs/tab1']);
+          });
         } else {
           that.isSubmit = false; 
           that.componentService.presentToast( res['message'], 'danger');
