@@ -20,7 +20,9 @@
                   <img src="{{chatlist?.userpic}}" alt="" />
                   <div>
                     <h3><strong>{{chatlist?.username}}</strong></h3>
-                    <p> {{chatlist?.message}}</p>
+                    <p *ngIf="chatlist?.message!=null"> {{chatlist?.message}}</p>
+                    <p *ngIf="chatlist?.image!=null && chatlist?.message==null"> <img
+                        src="../assets/icon/Camera_Icon.png" class="message-image"> Photo</p>
                   </div>
                 </div>
               </ion-label>

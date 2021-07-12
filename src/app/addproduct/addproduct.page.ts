@@ -17,7 +17,6 @@ declare var $: any;
 export class AddproductPage implements OnInit {
   public productForm: FormGroup;
   pro_picture: any = '';
-  seoCheckModel: any = '';
   categoryData: any = [];
   imageArray: any = [];
   subCategoryData: any = [];
@@ -61,6 +60,8 @@ export class AddproductPage implements OnInit {
     'Sample Costs shipping and taxes have to be paid by the',
     'If order is confirmed we will reimbuse the sample costs'
   ]
+  isDisplay: boolean = true;
+  seoCheckModel: boolean = true;
   export_market:any = [
     {value: 'Asia',isChecked:false},
     {value:'Central Asia',isChecked:false},
@@ -92,6 +93,7 @@ export class AddproductPage implements OnInit {
       child_id: [""],
       seo_check: [""],
       youtube: [""],
+      measure:[""],
       unit_measurement: [""],
       unit_val: [""],
       moq_val: [""],
@@ -125,7 +127,9 @@ export class AddproductPage implements OnInit {
     this.productForm.controls.sku.setValue(this.data.sku);
     this.productForm.controls.name.setValue(this.data.name);
     this.productForm.controls.category_id.setValue(this.data.category_id);
-
+    if(this.data.measure!=null && this.data.measure!=''){
+      this.productForm.controls.measure.setValue(this.data.measure);
+    }
     if (this.data.thumbnail != null && this.data.thumbnail != '') {
       this.pro_picture_edit = this.data.thumbnail;
       console.log(this.img+this.pro_picture_edit)
@@ -133,6 +137,8 @@ export class AddproductPage implements OnInit {
     if (this.data.youtube != null && this.data.youtube != '') {
       this.productForm.controls.youtube.setValue(this.data.youtube);
     }
+    console.log(this.seoCheckModel,'+++', this.data.meta_description)
+    
     if (this.data.meta_description != null && this.data.meta_description != '') {
       this.seoCheckModel = true;
       this.isDisplay = true;
@@ -148,13 +154,13 @@ export class AddproductPage implements OnInit {
       this.whole_sell_price =this.data.whole_sell_discount;
       if(this.data.whole_sell_qty.length>0){
         for(var i=0; i < this.data.whole_sell_qty.length; i++){
-          for(var j=0; j < this.data.whole_sell_discount.length; j++){
+          // for(var j=0; j < this.data.whole_sell_discount.length; j++){
             var data = {
               qty:  this.data.whole_sell_qty[i],
-              price:this.data.whole_sell_discount[j]
+              price:this.data.whole_sell_discount[i]
             }
             this.priceArray.push(data);
-          }
+          // }
         }
         console.log(this.priceArray)
       }
@@ -224,7 +230,6 @@ export class AddproductPage implements OnInit {
    }
 
 
-  isDisplay: boolean = false;
   ngOnInit() {
     // console.log(Math.random().toString(10));
     this.productForm.controls.sku.setValue(this.stringGen(10));
@@ -234,8 +239,10 @@ export class AddproductPage implements OnInit {
     console.log(evn.currentTarget.checked)
     if (evn.currentTarget.checked) {
       this.productForm.controls.seo_check.setValue(1);
+      // this.isDisplay = true;
     } else {
       this.productForm.controls.seo_check.setValue(0);
+      // this.isDisplay = false;
     }
   }
   delete(i){
@@ -398,17 +405,17 @@ export class AddproductPage implements OnInit {
     })
   }
   upload(evn) {
-    console.log($("#fupload")[0].files.length, this.data.galleries.length);
-    if(this.data != '' && this.data.galleries && this.data.galleries != null && this.data.galleries.length>0){
+    // console.log($("#fupload")[0].files.length, this.data.galleries.length);
+    if(this.data != '' && this.data.galleries && this.data.galleries !=undefined && this.data.galleries != null && this.data.galleries.length>0){
     var length  = this.data.galleries.length + this.imageArray.length +$("#fupload")[0].files.length;
     console.log(length)
     if(length > 5){
-      this.componentService.presentToast('Upload maximumy 5photos/videos', 'danger');
+      this.componentService.presentToast('Upload maximum 5photos/videos', 'danger');
       return false;
     }
     }
     if ($("#fupload")[0].files.length > 5) {
-      this.componentService.presentToast('Upload maximumy 5photos/videos', 'danger');
+      this.componentService.presentToast('Upload maximum 5photos/videos', 'danger');
       return false;
     }
     for (var i = 0; i < $("#fupload")[0].files.length; i++) {
@@ -460,19 +467,19 @@ export class AddproductPage implements OnInit {
       return false;
     }
     if (this.productForm.value.seo_check == 1) {
-      if (this.productForm.value.meta == '') {
+      if (this.productForm.value.meta == '' && this.tagArray.length == 0) {
         this.componentService.presentToast('Please enter meta tag.', 'danger');
         return false;
       } else if (this.productForm.value.meta_description == '') {
         this.componentService.presentToast('Please enter meta description.', 'danger');
       } else {
         if (this.tagArray.length == 0) {
-          this.tagArray.push(this.productForm.value.meta);
-          this.tagArray.forEach((data) => {
-            formData.append('meta_tag[]', data);
-          });
-
+          this.tagArray.push(this.productForm.value.meta);       
         }
+        this.tagArray.forEach((data) => {
+          formData.append('meta_tag[]', data);
+        });
+
       }
     }
     this.componentService.presentLoading();
@@ -547,8 +554,12 @@ export class AddproductPage implements OnInit {
       this.productForm.markAllAsTouched();
       return false;
     }
+    if(this.pro_picture =='' || this.pro_picture == null){
+      this.componentService.presentToast('Please select photo.', 'danger');
+      return false;
+    }
     if (this.productForm.value.seo_check == 1) {
-      if (this.productForm.value.meta == '') {
+      if (this.productForm.value.meta == '' && this.tagArray.length == 0) {
         this.componentService.presentToast('Please enter meta tag.', 'danger');
         return false;
       } else if (this.productForm.value.meta_description == '') {
@@ -556,11 +567,10 @@ export class AddproductPage implements OnInit {
       } else {
         if (this.tagArray.length == 0) {
           this.tagArray.push(this.productForm.value.meta);
-          this.tagArray.forEach((data) => {
-            formData.append('meta_tag[]', data);
-          });
-
         }
+        this.tagArray.forEach((data) => {
+          formData.append('meta_tag[]', data);
+        });
       }
     }
     this.componentService.presentLoading();
@@ -568,6 +578,8 @@ export class AddproductPage implements OnInit {
       formData.append(key, this.productForm.controls[key].value);
     }
     // return false;
+    formData.append('photo', this.pro_picture);      
+
     if (this.priceArray.length == 0) {
       if (this.productForm.value.moq_val != '' && this.productForm.value.price_val != '') {
         this.whole_sell_price.push(this.productForm.value.price_val);
@@ -627,6 +639,9 @@ export class AddproductPage implements OnInit {
           that.tagArray = [];
           that.productForm.reset();
           $('ion-checkbox').removeAttr('checked');
+          that.pro_picture ='';
+          that.pro_picture_edit ='';
+          that.navCtrl.navigateBack('/tabs/tab3')
           that.componentService.eventpublish('product:created', Date.now());
         } else {
           that.componentService.presentToast(res['message'], 'danger');

@@ -11,6 +11,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <div class="pending-approval" *ngIf="userData != '' && userData?.status == 0" >
+    <p class="pending">Your account is currently pending to be approved by the administrator.</p>
+  </div>
   <div class="p15 mt45">
     <ion-grid class="ion-no-padding">
       <ion-row>
@@ -97,7 +100,7 @@
           <ion-item-sliding *ngFor="let data of notificationData; let i = index;">
             <ion-item lines="none" (click)="goTo(data)" detail='false' [ngClass]="{'active': data?.is_read == 0}" class="ion-no-padding" routerLink="#">
               <ion-label>
-                <p>You have received a new notification.</p>
+                <p>You have received a new order <b>#{{data?.order_number}}</b> from <b>{{data?.username}}</b>.</p>
               </ion-label>
               <ion-note slot="end">
                 {{data?.created_at | timeAgo}}

@@ -3,6 +3,8 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">localhost</domain>
         <domain includeSubdomains="true">18.225.35.145</domain>
-        <domain includeSubdomains="true">dev.indiit.solutions</domain>        
+        <domain includeSubdomains="true">dev.indiit.solutions</domain>    
+        <domain includeSubdomains="true">www.yiwubazaar.com</domain>        
+
     </domain-config>
 </network-security-config>

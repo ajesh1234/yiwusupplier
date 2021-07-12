@@ -68,5 +68,15 @@ eventpublish(topic: string, data: any): void {
 
 	subject.next(data);
 }
+async presentContactToast(message, color) {
+	const toast = await this.toastControllter.create({
+		message: message,
+		duration: 5000,
+		position: 'bottom',
+  color:color == 'error' ? 'danger' : color,
+		// showCloseButton: true
+	});
+	toast.present();
+}
 
 }

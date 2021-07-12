@@ -23,6 +23,16 @@ export class Tab1Page {
         this.getNotification();
       }
     });
+    this.componentService.eventsubscribe('verification',(data)=>{
+      if(this.userData.api_token ==  data.token){
+        this.userData.status = data.profile;
+        console.log(this.userData, "user")
+        this.storageService.set('userData',  this.userData).then(resp => {
+          console.log(resp, "user123")
+          this.componentService.eventpublish('user:created',Date.now());          
+        })
+      }    
+    })
     this.componentService.eventsubscribe('noti:created',(data)=>{
       this.notificationData =[];
       this.noData = false;

@@ -29,7 +29,9 @@ export class Tab2Page {
     this.noData = false;
     this.getOrders();
   }
-  ngOnInit(){
+  ionViewDidEnter(){
+    this.productData = [];
+    this.noData = false;
     this.storageService.get('userData').then(res => {
       console.log(res);
       if (res != null && res != undefined) {
@@ -91,6 +93,7 @@ export class Tab2Page {
     }, 500);
   }
   getOrders() {
+    this.componentService.presentLoading();
     var data = {
       skip: this.pageNum,
       token: this.userData.api_token,
@@ -98,6 +101,7 @@ export class Tab2Page {
       status: this.profile
     }
     this.api.get('/supplierorders',data).subscribe(res => {
+      this.componentService.stopLoading();
       if (res.status == '200') {
         if (res.orders.length != 0) {
           this.noData = false;

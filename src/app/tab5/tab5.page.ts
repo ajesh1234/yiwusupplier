@@ -51,11 +51,14 @@ export class Tab5Page implements OnInit {
         this.basicinfoForm.patchValue({
           name: this.userData.name,
           email: this.userData.email,
-          address: this.userData.address,
+          // address: this.userData.address,
           phone: this.userData.phone,
           registration_no: this.userData.reg_number,
           details: this.userData.shop_details,
         });
+        if (this.userData.address != '' && this.userData.address != null && this.userData.address != undefined) {
+          this.basicinfoForm.controls.address.setValue(this.userData.address);
+        } 
         if (this.userData.who_are_you != '' && this.userData.who_are_you != null) {
           if (this.userData.who_are_you == 'Product') {
             this.basicinfoForm.controls.type.setValue("Product Supplier");

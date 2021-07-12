@@ -73,7 +73,7 @@
             <div class="error-message" *ngIf="isControlHasError('sku','required')">
               <p class="fs-11 mgt-5 txt-light">Please enter product sku.</p>
             </div>
-            <ion-list lines="none" class="selectimg">
+            <ion-list lines="none" class="selectimg" *ngIf="categoryData.length>0">
               <div class="labeltxt">Category</div>
               <ion-item lines="none" class="ion-no-padding">
                 <ion-select value="category" okText="Okay" cancelText="Dismiss" formControlName="category_id" (ionChange)="selectCat()">
@@ -151,10 +151,10 @@
               <div class="labeltxt">Unit of Measurement</div>
               <ion-item lines="none" class="ion-no-padding">
                 <div class="w100">
-                  <ion-select class="w100" formControlName="unit_measurement" okText="Okay" cancelText="Dismiss">
+                  <ion-select class="w100" formControlName="measure" okText="Okay" cancelText="Dismiss">
                     <ion-select-option *ngFor="let unit of unitArray" value="{{unit}}">{{unit}}</ion-select-option>
                      </ion-select>
-                  <ion-input *ngIf="productForm.value.unit_measurement == 'Custom Unit' " formControlName="unit_val"  class="w100" type="text" style="font-size: 15px !important;margin-top: 8px;" placeholder="Unit" name="text" autocapitalize="off" >
+                  <ion-input *ngIf="productForm.value.measure == 'Custom Unit' " formControlName="unit_measurement"  class="w100" type="text" style="font-size: 15px !important;margin-top: 8px;" placeholder="Unit" name="text" autocapitalize="off" >
                   </ion-input>
                 </div>
               </ion-item>
@@ -211,7 +211,7 @@
             <ion-list lines="none">
               <div class="labeltxt">Export Cotton Weight Kg</div>
               <ion-item lines="none" class="ion-no-padding">
-                <ion-input type="text" style="font-size: 15px !important;" formControlName="weight" placeholder="Enter Weight in KG" name="text" autocapitalize="off" >
+                <ion-input type="tel" style="font-size: 15px !important;" formControlName="weight" placeholder="Enter Weight in KG" name="text" autocapitalize="off" >
                 </ion-input>
               </ion-item>
             </ion-list>
@@ -226,21 +226,21 @@
             <ion-list lines="none">
               <div class="labeltxt">Export Cotton Dimension L/W/H</div>
               <ion-item lines="none" class="ion-no-padding">
-                <ion-input type="text" formControlName="length" style="font-size: 15px !important;" placeholder="Enter Length CM" name="text" autocapitalize="off" >
+                <ion-input type="tel" formControlName="length" style="font-size: 15px !important;" placeholder="Enter Length CM" name="text" autocapitalize="off" >
                 </ion-input>
               </ion-item>
             </ion-list>
 
             <ion-list lines="none">
               <ion-item lines="none" class="ion-no-padding">
-                <ion-input type="text" formControlName="width" style="font-size: 15px !important;" placeholder="Enter Width CM" name="text" autocapitalize="off" >
+                <ion-input type="tel" formControlName="width" style="font-size: 15px !important;" placeholder="Enter Width CM" name="text" autocapitalize="off" >
                 </ion-input>
               </ion-item>
             </ion-list>
 
             <ion-list lines="none">
               <ion-item lines="none" class="ion-no-padding">
-                <ion-input type="text" formControlName="height" style="font-size: 15px !important;" placeholder="Enter Height CM" name="text" autocapitalize="off" >
+                <ion-input type="tel" formControlName="height" style="font-size: 15px !important;" placeholder="Enter Height CM" name="text" autocapitalize="off" >
                 </ion-input>
               </ion-item>
             </ion-list>
@@ -248,7 +248,7 @@
             <ion-list lines="none">
               <div class="labeltxt">Cubic Meters (m³)</div>
               <ion-item lines="none" class="ion-no-padding">
-                <ion-input type="text" formControlName="cubic_meter" style="font-size: 15px !important;" placeholder="Cubic Meters (m³)" name="text" autocapitalize="off" >
+                <ion-input type="tel" formControlName="cubic_meter" style="font-size: 15px !important;" placeholder="Cubic Meters (m³)" name="text" autocapitalize="off" >
                 </ion-input>
               </ion-item>
             </ion-list>

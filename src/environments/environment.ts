@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
-  baseUrl:'http://dev.indiit.solutions/yiwu/public/api',
-  devbaseUrl:'http://dev.indiit.solutions/yiwu/public/api'
+  baseUrl:'https://www.yiwubazaar.com/api',
+  devbaseUrl:'https://www.yiwubazaar.com/api',
+  // baseUrl:'http://dev.indiit.solutions/yiwu/public/api',
+  // devbaseUrl:'http://dev.indiit.solutions/yiwu/public/api'
 };
 
 /*

@@ -520,3 +520,13 @@ p.error {
     top: 1px;
   }
 }
+.pending-approval {
+  padding: 1px 10px 1px 10px;
+  text-align: center;
+  background-color: red !important;
+  color: white;
+  p{
+  font-size: small;
+  font-weight: 600;
+  }
+}

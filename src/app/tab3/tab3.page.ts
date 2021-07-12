@@ -275,7 +275,7 @@ export class Tab3Page {
   async deleteConfirmation(id, index) {
     const alert = await this.alertController.create({
       cssClass: "my-custom-class subscription-label",
-      header: "Are you sure you want to delete this notification?",
+      header: "Are you sure you want to delete this product?",
       message: "",
       buttons: [
         {

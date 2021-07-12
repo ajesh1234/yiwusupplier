@@ -2,7 +2,7 @@
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay" side="start">
       <ion-content>
-        <ion-list class="ion-no-padding">
+        <ion-list class="ion-no-padding" *ngIf="categoryData.length>0">
           <div menucat *ngFor="let data of categoryData; let i = index">
            <ion-item lines="none" (click)="toggleLevel1('idx'+i)" >
             <img  slot="start" class="colwhite" src="{{data.photo}}">

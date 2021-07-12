@@ -15,19 +15,20 @@
     <div class="productmain">
       <div class="productmain__imgbox">
         <img src="{{selectedImg}}" *ngIf="selectedImg!=''" (click)="openImage(selectedImg)" />
-        <ion-skeleton-text *ngIf="selectedImg==''"  animated style="height: 250px; width: 100%;"></ion-skeleton-text>
+        <ion-skeleton-text *ngIf="selectedImg==''" animated style="height: 250px; width: 100%;"></ion-skeleton-text>
 
       </div>
 
       <div class="productmain__box">
         <ul>
-          <ion-slides pager="true" [options]="slideOpts" #mySlider  *ngIf="proData?.product_galleries.length">
-            <ion-slide  [ngClass]="getActive(pro)" *ngFor="let pro of proData.product_galleries ;let i=index" (click)="selected(pro.photo, pro )">
-           <li  >
-            <img src="{{proData.imgurl}}/{{pro.photo}}" class="" />
-           </li>
+          <ion-slides pager="true" [options]="slideOpts" #mySlider *ngIf="proData?.product_galleries.length">
+            <ion-slide [ngClass]="getActive(pro)" *ngFor="let pro of proData.product_galleries ;let i=index"
+              (click)="selected(pro.photo, pro )">
+              <li>
+                <img src="{{proData.imgurl}}/{{pro.photo}}" class="" />
+              </li>
             </ion-slide>
-            </ion-slides>
+          </ion-slides>
           <!-- <li class="active">
             <img src="assets/images/proimg.png" class="" />
           </li>
@@ -50,21 +51,81 @@
 
   <div class="profileHead" *ngIf="proData">
     <h1>{{proData?.product?.name}}</h1>
-    <div class="reviewdetails">
+    <p>Product SKU: {{proData?.product?.sku}}</p>
+    <!-- <div class="reviewdetails">
       <img src="assets/images/instock.svg" class="" />
       <strong>In stock</strong>
       <div class="startrat">
         <ion-rating class="reviews-btn" [rate]="proData?.product?.avgrating" readonly="true" size="small"></ion-rating> 
-
-        <!-- <ion-icon name="star"></ion-icon>
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star-outline"></ion-icon> -->
-        <span>({{proData?.product?.ratings?.length}} Reviews)</span>
+           <span>({{proData?.product?.ratings?.length}} Reviews)</span>
       </div>
+    </div> -->
+    <p>{{proData?.details}}</p>
+    <!-- <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p> -->
+    <h3><span>Price:</span> CN¥ {{proData?.product?.whole_sell_discount[0]}}/  {{proData?.product?.measure}} <small>(
+        {{proData?.product?.minimum_quantity}} {{proData?.product?.measure}} MOQ)</small></h3>
+    <div *ngIf="proData?.product?.whole_sell_discount.length>0" class="whole">
+      <ion-row>
+        <ion-col><h1>Quantity (Unit)</h1></ion-col>
+        <ion-col><h1>Unit Price (CN¥)</h1></ion-col>
+      </ion-row>
+      <ion-row *ngFor="let whole of proData?.product?.whole_sell_discount;let i =index">
+        <ion-col>{{proData?.product?.whole_sell_discount[i]}}</ion-col>
+        <ion-col> CN¥ {{whole}}</ion-col>
+      </ion-row>
     </div>
-    <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
-    <h3><span>Price:</span> CN¥ {{proData?.product?.whole_sell_discount[0]}}/ piece <small>( {{proData?.product?.minimum_quantity}} {{proData?.product?.measure}} MOQ)</small></h3>
+  </div>
+  <ion-segment [(ngModel)]="profile" color="primary">
+    <ion-segment-button value="tinfo">
+      <span>Trade Info</span>
+    </ion-segment-button>
+    <!-- <ion-segment-button value="reviews">
+        <span>Reviews</span>
+      </ion-segment-button> -->
+    <!-- <ion-segment-button value="comments">
+        <span>Comments</span>
+      </ion-segment-button> -->
+  </ion-segment>
+  <div [ngSwitch]="profile">
+
+    <div *ngSwitchCase="'tinfo'" class="tinfo overflowX-auto">
+      <table>
+        <tr>
+          <th>Package Weight and Dimensions</th>
+          <td>
+            Export Cotton Weight(Kg):<b>{{proData?.product?.weight}}
+              Kg</b>&nbsp;&nbsp;<br>Export Cotton
+            Dimension(L/W/H):<b>{{proData?.product?.length}}
+              x {{proData?.product?.width}} x {{proData?.product?.height}}
+              Centimeter</b><br> Cubic Meters
+            (m³):<b>{{proData?.product?.cubic_meter}} m³</b>
+          </td>
+        </tr>
+        <tr>
+          <th>Payment Terms</th>
+          <td [innerHtml]="proData?.product?.payment_term"> </td>
+        </tr>
+        <tr>
+          <th>Sample Available</th>
+          <td>{{proData?.product?.sample_check}}</td>
+        </tr>
+        <tr>
+          <th>Simple Policy</th>
+          <td>{{proData?.product?.sample_policy}}</td>
+        </tr>
+        <tr>
+          <th>Main Export Market(s)</th>
+          <td>
+            <ion-badge [innerHtml]="proData?.product?.export_market"></ion-badge>
+          </td>
+        </tr>
+        <tr>
+          <th>Package Details</th>
+          <td [innerHtml]="proData?.product?.policy"></td>
+        </tr>
+      </table>
+
+    </div>
+
   </div>
 </ion-content>

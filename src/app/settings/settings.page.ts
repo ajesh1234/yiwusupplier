@@ -14,6 +14,7 @@ export class SettingsPage implements OnInit {
   cartLength:any=0;
   ordercount:any='';
   favcount:any='';
+  tabChatVal:any='';
   constructor(public api:ApiService,public componentService:ComponentService, public alertController:AlertController, public storageService:StorageService, public navCtrl :NavController) {
    this.favcount = this.api.favcount;
     this.storageService.get('userData').then(res=>{
@@ -52,6 +53,34 @@ export class SettingsPage implements OnInit {
       if( res != null && res != undefined){
         this.userData = res;
          this.getOrders();
+      }
+    })
+  }
+  goToNoti(url){
+    this.storageService.get('userData').then(res=>{
+      if( res != null && res != undefined){
+        console.log('if', res.status)
+        if(res.status == 0){
+          this.componentService.presentContactToast('Your account is currently pending to be approved by the administrator. Thanks', 'danger')
+          return false;
+        }else{
+          this.navCtrl.navigateForward(url);
+        }
+      }
+    })
+  }
+  goTo(val){
+    this.storageService.get('userData').then(res=>{
+      if( res != null && res != undefined){
+        console.log('if', res.status)
+        if(res.status == 0){
+          this.componentService.presentContactToast('Your account is currently pending to be approved by the administrator. Thanks', 'danger')
+          return false;
+        }else{
+          console.log("else idf ")
+          this.tabChatVal = val;
+          this.navCtrl.navigateForward(['/tabs/'+val]);
+        }        
       }
     })
   }

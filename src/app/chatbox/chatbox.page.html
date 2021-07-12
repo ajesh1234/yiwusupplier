@@ -10,10 +10,12 @@
 </ion-header>
 
 <ion-content #content>
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="pagination($event)">
+  <ion-infinite-scroll threshold="10px"  position="top" (ionInfinite)="pagination($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
     </ion-infinite-scroll-content>
 </ion-infinite-scroll> 
+<ion-spinner  name="dots" style="left: 47%;" *ngIf="chat.length == 0 && !noData"></ion-spinner>
+
   <div class="main_content_div" *ngIf="chat.length>0">
     <span>
       <div *ngFor="let userchat of chat" [ngClass]="addClass(userchat)"  >
@@ -22,6 +24,7 @@
           <div (click)="presentModal(userchat)">
             <div class="msg_div">
               <img  class="message-image" *ngIf="userchat?.image!=null" [src]="getImage(userchat)" >
+              
               <ion-label *ngIf="userchat?.message!=null">{{userchat?.message}}</ion-label>
 
             </div>
@@ -67,11 +70,12 @@
   <ion-icon name="close" *ngIf="image!=null && image!='' " (click)="close()"></ion-icon>
   </div>
   <div class="footer_div">
-    <ion-icon name="attach-outline" (click)="selectImage()"></ion-icon>
-
+    
+<ion-buttons slot="start" (click)="selectImage()"><ion-icon name="attach-outline" ></ion-icon></ion-buttons>
     <ion-input type="text" placeholder="Type your message" [(ngModel)]="message" name="message">
     </ion-input>
-      <img src="../../assets/images/Send_Button.png"  (click)="sendMessage()">
+	<ion-buttons slot="end" (click)="sendMessage()"><ion-icon name="send"></ion-icon></ion-buttons>
+      <!--img src="../../assets/images/Send_Button.png"  (click)="sendMessage()"-->
     <!-- <img src="assets/images/smile.svg"  /> -->
 
     <!-- <div class="chat_div">

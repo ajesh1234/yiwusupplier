@@ -6,7 +6,11 @@ ion-title{
 .main_content_div {
   padding: 15px;
 }
-
+.message-image{
+  height: 15px !important;
+  width: 15px !important;
+  margin-right: 4px !important;
+}
 ion-chip {
   margin: 6px;
   ion-avatar{

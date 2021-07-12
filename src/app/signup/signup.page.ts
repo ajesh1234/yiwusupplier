@@ -189,7 +189,13 @@ export class SignupPage implements OnInit {
         console.log(res)
          that.componentService.stopLoading();
         if (res['status'] == '200') {
-      
+          if(res.verification_email_sent == 1){
+            that.isSubmit = false; 
+            that.imageArray =[];
+            that.componentService.presentToast(res.message, 'success')
+            that.navCtrl.navigateRoot(['/tabs/login']);
+            that.signupForm.reset();
+         }else{
           that.storageService.set('userData', res.user_info).then(resp => {        
             that.isSubmit = false; 
             that.componentService.presentToast(res['message'],'success');
@@ -198,6 +204,7 @@ export class SignupPage implements OnInit {
             that.menu.enable(true);
             that.navCtrl.navigateRoot(['/tabs/tab1']);
           });
+        }
         } else {
           that.isSubmit = false; 
           that.componentService.presentToast( res['message'], 'danger');

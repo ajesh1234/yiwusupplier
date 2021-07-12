@@ -7,19 +7,19 @@
       <ion-label>Home</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab2">
+    <ion-tab-button (click)="goToChat('tab2')" [tab]="tabOrderVal" >
       <ion-icon src="assets/images/tabs/order.svg" class="beforeabselect"></ion-icon>
       <ion-icon src="assets/images/tabs/order1.svg" class="aftertabselect"></ion-icon>
       <ion-label>Order</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab3" (click)="goTo()">
+    <ion-tab-button (click)="goTo()" [tab]="tabVal">
       <ion-icon src="assets/images/tabs/products.svg" class="beforeabselect"></ion-icon>
       <ion-icon src="assets/images/tabs/products1.svg" class="aftertabselect"></ion-icon>
       <ion-label>Product</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab4">
+    <ion-tab-button (click)="goToChat('tab4')"  [tab]="tabChatVal">
       <div carticon>
       <ion-icon src="assets/images/tabs/message.svg" class="beforeabselect"></ion-icon>
       <ion-icon src="assets/images/tabs/message1.svg" class="aftertabselect"></ion-icon>

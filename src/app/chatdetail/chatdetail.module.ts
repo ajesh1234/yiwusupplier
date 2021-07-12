@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -15,6 +16,6 @@ import { ChatdetailPage } from './chatdetail.page';
     IonicModule,
     ChatdetailPageRoutingModule
   ],
-  declarations: [ChatdetailPage]
+  declarations: [ChatdetailPage,TimeAgoPipe]
 })
 export class ChatdetailPageModule {}
